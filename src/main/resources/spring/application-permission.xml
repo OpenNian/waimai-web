@@ -16,40 +16,24 @@
           http://www.springframework.org/schema/data/jpa
           http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd">
 
-  <!-- 配置了两个Spring Data Jpa配置 -->
-  <!-- 引入auth_core.jar start -->
-  <!-- 配置了auth_core.jar的jpa repositories -->
-  <jpa:repositories base-package="cn.rainier.nian.dao"
-    transaction-manager-ref="transactionManager"
-    entity-manager-factory-ref="entityManagerFactory" />
-
   <!-- 引入auth_core自带的userService -->
-
-  <bean class="cn.rainier.nian.service.OutCSVForUser" id="outUser"/>
-
-  <bean class="cn.rainier.nian.service.impl.UserServiceImpl" id="userService">
+  <bean class="com.waimai.service.impl.UserServiceImpl" id="userService">
     <property name="userDao" ref="userDao" />
-    <property name="outCSV" ref="outUser"/>
   </bean>
 
-  <bean class="cn.rainier.nian.service.OutCSVForRole" id="outRole">
-  	<property name="resourceDao" ref="resourceDao"/>
-  </bean>
-
-  <bean id="roleService" class="cn.rainier.nian.service.impl.RoleServiceImpl">
+  <bean id="roleService" class="com.waimai.service.impl.RoleServiceImpl">
     <property name="roleDao" ref="roleDao" />
-    <property name="outCSV" ref="outRole"/>
   </bean>
 
-  <bean id="menuService" class="cn.rainier.nian.service.impl.MenuServiceImpl">
+  <bean id="menuService" class="com.waimai.service.impl.MenuServiceImpl">
     <property name="menuDao" ref="menuDao" />
   </bean>
 
-  <bean id="resourceDao" class="cn.rainier.nian.dao.impl.ResourceDaoImpl">
+  <bean id="resourceDao" class="com.waimai.dao.impl.ResourceDaoImpl">
     <property name="ds" ref="dataSource" />
   </bean>
 
-  <bean id="resourceService" class="cn.rainier.nian.service.impl.ResourceServiceImpl">
+  <bean id="resourceService" class="com.waimai.service.impl.ResourceServiceImpl">
     <property name="resourceDao" ref="resourceDao" />
     <property name="menuDao" ref="menuDao" />
   </bean>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,7 +38,7 @@ public class User extends IdEntity implements UserDetails{
 	/**
 	 * 所属角色
 	 */
-	private List<Role> roles;	
+	private Set<Role> roles;	
 	
 	
 	public void setUsername(String username) {
@@ -99,14 +102,14 @@ public class User extends IdEntity implements UserDetails{
 				joinColumns=@JoinColumn(name="userId"),
 				inverseJoinColumns=@JoinColumn(name="roleId")
 			)
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 	public boolean getEnabled() {
 		return enabled;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 	
