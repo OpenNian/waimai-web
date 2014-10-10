@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
 import com.waimai.model.Role;
 import com.waimai.model.User;
+import com.waimai.service.LogUtil;
 import com.waimai.service.impl.RoleServiceImpl;
 import com.waimai.service.impl.UserServiceImpl;
 import com.waimai.util.LogType;
+import com.waimai.util.MsgUtil;
 import com.waimai.util.PageRainier;
 
 

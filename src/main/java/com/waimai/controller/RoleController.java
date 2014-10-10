@@ -3,11 +3,8 @@ package com.waimai.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -17,14 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
 import com.waimai.model.Menu;
 import com.waimai.model.Resource;
 import com.waimai.model.Role;
 import com.waimai.model.User;
+import com.waimai.service.LogUtil;
 import com.waimai.service.impl.MenuServiceImpl;
 import com.waimai.service.impl.ResourceServiceImpl;
 import com.waimai.service.impl.RoleServiceImpl;
+import com.waimai.util.LogType;
+import com.waimai.util.MsgUtil;
 import com.waimai.util.PageRainier;
 import com.waimai.util.UUIDGenerator;
 
@@ -165,8 +164,8 @@ public class RoleController {
 				MsgUtil.setMsg("success", "成功分配【"+model.getDesc()+"】权限！");
 				LogUtil.getInstance().log(LogType.DISTRIBUTE, "重新分配了"+model.getDesc()+"的权限");
 				try {
-					resourceDetailsMonitor.afterPropertiesSet();
-					session.removeAttribute("menuXml");
+					//resourceDetailsMonitor.afterPropertiesSet();
+					//session.removeAttribute("menuXml");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -177,23 +176,6 @@ public class RoleController {
 			MsgUtil.setMsg("error", "分配权限失败！");
 		}
 		return "redirect:/admin/sys/role/roles/1";
-	}
-	@RequestMapping(value="/export",method=RequestMethod.GET)
-	public void exportToCSV(HttpServletResponse response){
-		try {
-			List<Role> roles = roleService.findAll(null, null,false).getResult();
-			roles.remove(roleService.findDefault());
-			String fileName = "角色信息"+new Date().getTime()+".csv";
-			fileName = new String(fileName.getBytes("gbk"),"iso8859-1");
-			response.setContentType("application/csv;charset=gbk");
-			response.setHeader("Content-Disposition","attachment; filename="+fileName);
-			//注意：先权限jar包里的（按属性顺序下来的），再扩展的属性
-			String[] headers = {"角色","权限"};
-			roleService.exportToCSVExNoDisplay(roles,fileName,headers,response);
-			LogUtil.getInstance().log(LogType.EXPORT,"导出角色表："+fileName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public RoleServiceImpl getRoleService() {
