@@ -4,22 +4,22 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 	<!-- Keep this file empty, Spring will scan the @Entity classes -->
-	<persistence-unit name="brightengold" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="waimai" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<!-- 引入auth_core中的model -->
-		<class>cn.rainier.nian.model.User</class> 
+		<!-- <class>cn.rainier.nian.model.User</class> 
 		<class>cn.rainier.nian.model.Role</class>
 		<class>cn.rainier.nian.model.Resource</class>
-		<class>cn.rainier.nian.model.Menu</class>
+		<class>cn.rainier.nian.model.Menu</class> -->
 		
 		<!-- 权限外的模块 -->
-		<class>com.brightengold.model.News</class>
+		<!-- <class>com.brightengold.model.News</class>
 		<class>com.brightengold.model.Company</class>
 		<class>com.brightengold.model.Log</class>
 		<class>com.brightengold.model.Feedback</class>
 		<class>com.brightengold.model.Category</class>
 		<class>com.brightengold.model.Product</class>
-		<class>com.brightengold.model.DicType</class>
+		<class>com.brightengold.model.DicType</class> -->
 		
 		<properties>
 			<property name="show_sql" value="true" />

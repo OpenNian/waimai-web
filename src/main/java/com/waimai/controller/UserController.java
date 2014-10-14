@@ -41,11 +41,11 @@ public class UserController {
 	private Integer pageSize = 10;
 	
 	@RequestMapping({"/users/{pageNo}"})
-	@Secured("ROLE_SUPER")
 	public String list(@PathVariable Integer pageNo,Model model,HttpServletRequest request){
 		if(pageNo==null){
 			pageNo = 1;
 		}
+		System.out.println(1243);
 		users = userService.findAllUser(pageNo, pageSize, true);
 		model.addAttribute("page",users);//map
 		return "admin/sys/user/list";

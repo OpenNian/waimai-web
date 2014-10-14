@@ -176,13 +176,19 @@
 		<version>3.1.0.RELEASE</version>
 	</dependency>
 	<!-- spring security end -->
-  <!-- commons dbcp start -->
+  <!-- commons start -->
 	<dependency>
 		<groupId>commons-dbcp</groupId>
 		<artifactId>commons-dbcp</artifactId>
 		<version>1.4</version>
 	</dependency>
-	<!-- commons dbcp start -->
+	
+	<dependency>
+		<groupId>commons-fileupload</groupId>
+		<artifactId>commons-fileupload</artifactId>
+		<version>1.3</version>
+	</dependency>
+	<!-- commons start -->
   	<!-- jpa start -->
 	<dependency>
 		<groupId>org.hibernate.javax.persistence</groupId>
@@ -221,6 +227,106 @@
   </dependencies>
   <build>
     <finalName>waimai-web</finalName>
+    <!-- 插件 -->
+		<pluginManagement>
+			<plugins>
+				<!-- war插件 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<failOnMissingWebXml>true</failOnMissingWebXml>
+						<packagingExcludes>
+							**/jdbc.properties
+						</packagingExcludes>
+						<webResources>
+							<resource>
+								<directory>${project.basedir}/src/main/webapp</directory>
+								<filtering>true</filtering>
+							</resource>
+						</webResources>
+					</configuration>
+				</plugin>
+				<!-- clean插件 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<configuration>
+						<filesets>
+							<fileset>
+								<directory>${basedir}</directory>
+								<includes>
+									<include>**/*.log</include>
+								</includes>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
+				<!-- tests插件 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+				<!-- more source directories插件 -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.7</version>
+				</plugin>
+				<!-- code coverage via插件 -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>cobertura-maven-plugin</artifactId>
+					<version>2.5.1</version>
+				</plugin>
+				<!-- jetty插件 -->
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>8.1.15.v20140411</version>
+					<configuration>
+					    <scanIntervalSeconds>0</scanIntervalSeconds>
+						<webAppConfig>
+						  <contextPath>/</contextPath>
+						  <defaultsDescriptor>src/test/resources/webdefault.xml</defaultsDescriptor>
+						</webAppConfig>
+					    <connectors>
+					       <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+					          <port>9080</port>
+					          <maxIdleTime>60000</maxIdleTime>
+					       </connector>
+					     </connectors>
+				    </configuration>
+					<dependencies>
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>5.1.22</version>
+						</dependency>
+						<dependency>
+							<artifactId>netty</artifactId>
+							<groupId>org.jboss.netty</groupId>
+							<version>3.2.5.Final</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>  
+	                <groupId>org.zeroturnaround</groupId>  
+	                <artifactId>jrebel-maven-plugin</artifactId>
+	                <version>1.1.5</version>
+	                <executions></executions>
+	                <configuration>
+		                <!-- 指定生成的jrebel.xml放在哪里，要求放在web应用的 classpath下 -->
+		                <rebelXmlDirectory>${basedir}/src/main/webapp/WEB-INF/classes</rebelXmlDirectory>
+	                </configuration>
+            </plugin>
+			</plugins>
+		</pluginManagement>
+		<outputDirectory>${basedir}/src/main/webapp/WEB-INF/classes</outputDirectory>
   </build>
   
 </project>
