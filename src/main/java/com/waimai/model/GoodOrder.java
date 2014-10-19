@@ -3,6 +3,9 @@ package com.waimai.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 /**
  * ClassName: GoodOrder
  * Desc: 菜品订单
@@ -10,13 +13,14 @@ import java.util.List;
  * @author li.n1 
  * @since JDK 1.6
  */
-public class GoodOrder implements Serializable{
+@Entity
+@Table(name="goodOrder")
+public class GoodOrder extends IdEntity implements Serializable{
 	/** 
 	 * serialVersionUID:序列化 
 	 * @since JDK 1.6 
 	 */ 
 	private static final long serialVersionUID = -1323789713783799855L;
-	private int id;
 	/**
 	 * 订单号
 	 */
@@ -37,12 +41,6 @@ public class GoodOrder implements Serializable{
 	 * 菜品总价
 	 */
 	private double goodPrice;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public int getOrderNo() {
 		return orderNo;
 	}

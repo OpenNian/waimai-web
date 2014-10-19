@@ -1,6 +1,15 @@
 package com.waimai.model;  
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  * ClassName: Dish
@@ -9,13 +18,14 @@ import java.io.Serializable;
  * @author li.n1 
  * @since JDK 1.6
  */
-public class Dish implements Serializable{
+@Entity
+@Table(name="dish")
+public class Dish extends IdEntity implements Serializable{
 	/** 
 	 * serialVersionUID:序列化
 	 * @since JDK 1.6 
 	 */ 
 	private static final long serialVersionUID = 9121389848184203713L;
-	private int id;
 	/**
 	 * 菜品名称
 	 */
@@ -27,7 +37,7 @@ public class Dish implements Serializable{
 	/**
 	 * 菜品的提供商
 	 */
-	private Business business;
+	private Set<Business> businesses;
 	/**
 	 * 菜品图片
 	 */
@@ -48,12 +58,15 @@ public class Dish implements Serializable{
 	 * 是否热门
 	 */
 	private boolean hotOrNot;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	/**
+	 * 菜品唯一的编码；
+	 */
+	private String dishNo;
+	/**
+	 * 菜品创建时间
+	 */
+	private Date createTime;
+	
 	public String getName() {
 		return name;
 	}
@@ -66,11 +79,16 @@ public class Dish implements Serializable{
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public Business getBusiness() {
-		return business;
+	@ManyToMany(cascade={CascadeType.MERGE,CascadeType.REFRESH})
+	@JoinTable(name="dishId_businessId",
+				joinColumns=@JoinColumn(name="dishId"),
+				inverseJoinColumns=@JoinColumn(name="businessId")
+			)
+	public Set<Business> getBusinesses() {
+		return businesses;
 	}
-	public void setBusiness(Business business) {
-		this.business = business;
+	public void setBusinesses(Set<Business> businesses) {
+		this.businesses = businesses;
 	}
 	public String getImg() {
 		return img;
@@ -102,5 +120,16 @@ public class Dish implements Serializable{
 	public void setHotOrNot(boolean hotOrNot) {
 		this.hotOrNot = hotOrNot;
 	}
-	
+	public String getDishNo() {
+		return dishNo;
+	}
+	public void setDishNo(String dishNo) {
+		this.dishNo = dishNo;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 }

@@ -13,7 +13,6 @@
     <http pattern="/login.jsp" security="none" />
     <http pattern="/denied.jsp" security="none" />
     <http pattern="/background/login.htm" security="none" />
-   <!--  <http pattern="/background/j_security_check" security="none"/> -->
     <http pattern="/background/loginCheck.htm" security="none"/>
     
 	<!--/

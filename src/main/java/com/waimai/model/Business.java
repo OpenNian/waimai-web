@@ -1,6 +1,11 @@
 package com.waimai.model;  
 
 import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  * ClassName: Business
@@ -9,13 +14,14 @@ import java.io.Serializable;
  * @author li.n1 
  * @since JDK 1.6
  */
-public class Business implements Serializable{
+@Entity
+@Table(name="business")
+public class Business extends IdEntity implements Serializable{
 	/** 
 	 * serialVersionUID:序列化
 	 * @since JDK 1.6 
 	 */ 
 	private static final long serialVersionUID = 2926907568693709547L;
-	private int id;
 	/**
 	 * 商家名称
 	 */
@@ -32,12 +38,10 @@ public class Business implements Serializable{
 	 * 负责人电话号码
 	 */
 	private String telephone;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	/**
+	 * 商家所有菜品
+	 */
+	private Set<Dish> dishes;
 	public String getName() {
 		return name;
 	}
@@ -62,5 +66,11 @@ public class Business implements Serializable{
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	
+	@ManyToMany(mappedBy="businesses")
+	public Set<Dish> getDishes() {
+		return dishes;
+	}
+	public void setDishes(Set<Dish> dishes) {
+		this.dishes = dishes;
+	}
 }

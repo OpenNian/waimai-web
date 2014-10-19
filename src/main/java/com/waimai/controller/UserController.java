@@ -45,7 +45,7 @@ public class UserController {
 		if(pageNo==null){
 			pageNo = 1;
 		}
-		System.out.println(1243);
+		System.out.println(1244443);
 		users = userService.findAllUser(pageNo, pageSize, true);
 		model.addAttribute("page",users);//map
 		return "admin/sys/user/list";
