@@ -3,12 +3,20 @@ package com.waimai.service.impl;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.waimai.dao.MenuDao;
 import com.waimai.model.Menu;
 import com.waimai.model.Role;
 import com.waimai.service.MenuService;
 
 
+@Service
 public class MenuServiceImpl extends MenuService{
+	@Autowired
+	private MenuDao menuDao;
 	/**
 	 * @FunName: findParentMenuByRole
 	 * @Description:  根据所属角色查找能访问的一级菜单
@@ -64,5 +72,23 @@ public class MenuServiceImpl extends MenuService{
 	public Menu loadMenuByUrl(String url) {
 		return this.getMenuDao().loadMenuByUrl(url);
 	}
+	
+	public void delMenu(Serializable id){
+		menuDao.delete(id);
+	}
+	
+	public Menu saveMenu(Menu m){
+		return menuDao.save(m);
+	}
+	
+	public Menu loadMenuById(Serializable id){
+		return menuDao.findOne(id);
+	}
 
+	public MenuDao getMenuDao() {
+		return menuDao;
+	}
+	public void setMenuDao(MenuDao menuDao) {
+		this.menuDao = menuDao;
+	}
 }

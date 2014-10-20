@@ -3,20 +3,7 @@ package com.waimai.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-
-@Entity
-@Table
 public class Log implements Serializable {
 	/**
 	 * 
@@ -53,22 +40,18 @@ public class Log implements Serializable {
 	private String temp1;
 	private String temp2;
 	
-	@Id
-	@GeneratedValue
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	@Column(length=100)
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
 	}
-	@Column(length=10)
 	public String getType() {
 		return type;
 	}
@@ -81,15 +64,12 @@ public class Log implements Serializable {
 	public void setOperator(String operator) {
 		this.operator = operator;
 	}
-	@ManyToOne(cascade={CascadeType.MERGE})
-	@JoinColumn(name="menu")
 	public Menu getMenu() {
 		return menu;
 	}
 	public void setMenu(Menu menu) {
 		this.menu = menu;
 	}
-	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreateTime() {
 		return createTime;
 	}

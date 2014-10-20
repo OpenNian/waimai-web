@@ -2,10 +2,8 @@ package com.waimai.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 /**
  * ClassName: GoodOrder
  * Desc: 菜品订单
@@ -13,8 +11,6 @@ import javax.persistence.Table;
  * @author li.n1 
  * @since JDK 1.6
  */
-@Entity
-@Table(name="goodOrder")
 public class GoodOrder extends IdEntity implements Serializable{
 	/** 
 	 * serialVersionUID:序列化 
@@ -32,7 +28,7 @@ public class GoodOrder extends IdEntity implements Serializable{
 	/**
 	 * 订单项
 	 */
-	private List<OrderItem> items;
+	private Set<OrderItem> items;
 	/**
 	 * 菜品总数
 	 */
@@ -53,10 +49,10 @@ public class GoodOrder extends IdEntity implements Serializable{
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public List<OrderItem> getItems() {
+	public Set<OrderItem> getItems() {
 		return items;
 	}
-	public void setItems(List<OrderItem> items) {
+	public void setItems(Set<OrderItem> items) {
 		this.items = items;
 	}
 	public int getGoodNum() {

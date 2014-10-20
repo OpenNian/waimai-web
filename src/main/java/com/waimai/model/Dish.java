@@ -4,13 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
 /**
  * ClassName: Dish
  * Desc: 菜品实体类
@@ -18,8 +11,6 @@ import javax.persistence.Table;
  * @author li.n1 
  * @since JDK 1.6
  */
-@Entity
-@Table(name="dish")
 public class Dish extends IdEntity implements Serializable{
 	/** 
 	 * serialVersionUID:序列化
@@ -79,11 +70,6 @@ public class Dish extends IdEntity implements Serializable{
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	@ManyToMany(cascade={CascadeType.MERGE,CascadeType.REFRESH})
-	@JoinTable(name="dishId_businessId",
-				joinColumns=@JoinColumn(name="dishId"),
-				inverseJoinColumns=@JoinColumn(name="businessId")
-			)
 	public Set<Business> getBusinesses() {
 		return businesses;
 	}

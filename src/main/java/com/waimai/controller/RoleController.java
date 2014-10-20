@@ -141,7 +141,7 @@ public class RoleController {
 					Menu menu = null;
 					for(String str : strIdArr){
 						if(str.startsWith("r_")){
-							res = resourceService.loadResourceByResource(Long.parseLong(str.substring(2)));
+							res = resourceService.loadResourceByResource(Integer.parseInt(str.substring(2)));
 							ress.add(res);
 						}else{
 							menu = menuService.loadMenuById(Long.parseLong(str));

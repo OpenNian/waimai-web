@@ -5,24 +5,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@SuppressWarnings("deprecation")
-@Entity
-@Table(name="user")
 public class User extends IdEntity implements UserDetails{
 	/**
 	 * 序列化
@@ -52,7 +38,7 @@ public class User extends IdEntity implements UserDetails{
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	@Transient
+	
 	public Collection<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> ga = new ArrayList<GrantedAuthority>();
 		if(roles!=null){
@@ -71,16 +57,13 @@ public class User extends IdEntity implements UserDetails{
 		return username;
 	}
 	
-	@Transient
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 	
-	@Transient
 	public boolean isAccountNonLocked() {
 		return accountNonLocked;
 	}
-	@Transient
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
@@ -89,19 +72,6 @@ public class User extends IdEntity implements UserDetails{
 		return enabled;
 	}
 	
-	//关系维护端，负责多对多关系的绑定和解除
-    //@JoinTable注解的name属性指定关联表的名字，joinColumns指定外键的名字，关联到关系维护端(Player)
-    //inverseJoinColumns指定外键的名字，要关联的关系被维护端(Game)
-    //其实可以不使用@JoinTable注解，默认生成的关联表名称为主表表名+下划线+从表表名，
-    //即表名为user_role
-    //关联到主表的外键名：主表名+下划线+主表中的主键列名,即userId
-    //关联到从表的外键名：主表中用于关联的属性名+下划线+从表的主键列名,即roleId
-    //主表就是关系维护端对应的表，从表就是关系被维护端对应的表
-	@ManyToMany(cascade={CascadeType.MERGE,CascadeType.REFRESH})
-	@JoinTable(name="user_role",
-				joinColumns=@JoinColumn(name="userId"),
-				inverseJoinColumns=@JoinColumn(name="roleId")
-			)
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -147,7 +117,7 @@ public class User extends IdEntity implements UserDetails{
 	public boolean getAccountNonLocked() {
 		return accountNonLocked;
 	}
-	@Temporal(TemporalType.DATE)
+	
 	public Date getLastCloseDate() {
 		return lastCloseDate;
 	}

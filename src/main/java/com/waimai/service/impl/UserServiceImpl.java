@@ -1,26 +1,12 @@
 package com.waimai.service.impl;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -32,16 +18,18 @@ import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.cache.NullUserCache;
+import org.springframework.stereotype.Service;
+
 import com.waimai.dao.ResourceDao;
 import com.waimai.dao.UserDao;
 import com.waimai.model.Resource;
-import com.waimai.model.Role;
 import com.waimai.model.User;
 import com.waimai.service.UserService;
 import com.waimai.util.PageRainier;
 
-
+@Service
 public class UserServiceImpl implements UserService {
+	@Autowired
 	private UserDao userDao;
 	private UserCache userCache = new NullUserCache();
 	@Autowired
@@ -53,22 +41,6 @@ public class UserServiceImpl implements UserService {
 			throws UsernameNotFoundException, DataAccessException {
 		User user =  this.loadUserByName(username);
 		return user;
-	}
-	/**
-	 * 查询用户列表，根据Id排序，降序
-	 */
-	public PageRainier<User> findAllUser(Integer pageNo,Integer pageSize,boolean flag) {
-		PageRainier<User> page = null;
-		if(flag){
-			Page<User> tempPage = userDao.findAll(new PageRequest(pageNo-1, pageSize,new Sort(Direction.DESC, "id")));
-			page = new PageRainier<User>(tempPage.getTotalElements(), pageNo, pageSize);
-			List<User> users = tempPage.getContent();
-			page.setResult(users);
-		}else{
-			page = new PageRainier<User>();
-			page.setResult(userDao.findAll(new Sort(Direction.ASC, "id")));
-		}
-		return page;
 	}
 	
 	public User loadUserByName(String userid) {
@@ -144,37 +116,7 @@ public class UserServiceImpl implements UserService {
 	public Long findCount() {
 		return userDao.count();
 	}
-	/**
-	 * 模糊查询用户
-	 */
-	public PageRainier<User> findUserByLike(Specification<User> speci,String field,String condition,Integer pageNo,Integer pageSize){
-		Page<User> tempPage = userDao.findAll(speci, 
-				new PageRequest(pageNo-1,pageSize,new Sort(Direction.DESC,"id")));
-		PageRainier<User> page = new PageRainier<User>(tempPage.getTotalElements(),pageNo,pageSize);
-		page.setResult(tempPage.getContent());
-		return page;
-	}
-	
-	private Specification<User> findUserByRoleLikeSpeci(final String role){
-		return new Specification<User>() {
-			public Predicate toPredicate(Root<User> root,
-					CriteriaQuery<?> query, CriteriaBuilder cb) {
-				Join<Role,String> join = root.joinList("roles");
-				//root.fetch("name");
-				return cb.like(join.<String>get("desc"), role);
-			}
-		};
-	}
-	/**
-	 * 根据角色模糊查询用户
-	 */
-	public PageRainier<User> findUserByRoleLike(final String role,Integer pageNo,Integer pageSize){
-		Specification<User> speci = findUserByRoleLikeSpeci(role);
-		Page<User> tempPage = userDao.findAll(speci, new PageRequest(pageNo-1,pageSize));
-		PageRainier<User> page = new PageRainier<User>(tempPage.getTotalElements(),pageNo,pageSize);
-		page.setResult(tempPage.getContent());
-		return page;
-	}
+		
 	/**
 	 * @FunName: changePassword
 	 * @Description:  修改密码
@@ -248,5 +190,15 @@ public class UserServiceImpl implements UserService {
 			authSet.add(new SimpleGrantedAuthority("ROLE_" + res.getRes_string()));
 		}
 		return authSet;
+	}
+
+	public PageRainier<User> findAllUser(Integer pageNo, Integer pageSize,
+			boolean flag) {
+		return null;
+	}
+
+	public PageRainier<User> findUserByRoleLike(String role, Integer pageNo,
+			Integer pageSize) {
+		return null;
 	}
 }

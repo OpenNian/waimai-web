@@ -3,8 +3,6 @@ package com.waimai.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
-import com.waimai.dao.base.AbstractDao;
 import com.waimai.model.Role;
 import com.waimai.model.User;
 
@@ -23,7 +21,7 @@ import com.waimai.model.User;
  * @Why & What is modified: ? <修改原因描述>		
  * @Version:1.0<版本号>
  */
-public interface RoleDao extends AbstractDao<Role,Serializable>{
+public interface RoleDao {
 	/**
 	 * @FunName: findUserByRole
 	 * @Description:  查询此角色下的所有用户
@@ -32,10 +30,7 @@ public interface RoleDao extends AbstractDao<Role,Serializable>{
 	 * @Author: 李年
 	 * @CreateDate: 2013-3-28
 	 */
-		//@Query("select distinct u from User u,Role g where u.id in elements(g.users) and g.id = ?") //有用的
-		//@Query("select distinct u from User u,Role g where u in elements(g.users) and g.id = ?")		//有用的
-		@Query("select distinct u from User u join u.roles r where r.id = ? order by u.id desc")		//有用的
-		public List<User> findUserByRole(Serializable roleId);
+		public List<User> findUserByRole(Serializable roleName);
 		/**
 		 * @FunName: finAllByAjax
 		 * @Description:  ajax异步拿到所有角色的name与desc属性
@@ -43,7 +38,6 @@ public interface RoleDao extends AbstractDao<Role,Serializable>{
 		 * @Author: 李年
 		 * @CreateDate: 2013-3-28
 		 */
-		@Query("select r.name,r.desc from Role r where r.defaultOrNo = false")
 		public List<Object[]> finAllByAjax();
 		/**
 		 * @FunName: findRoleByUser
@@ -53,7 +47,6 @@ public interface RoleDao extends AbstractDao<Role,Serializable>{
 		 * @Author: 李年
 		 * @CreateDate: 2013-3-28
 		 */
-		@Query("select r from Role r join r.users u where u.id =?")
 		public List<Role> findRoleByUser(Serializable userId);
 		/**
 		 * @FunName: findDefaultRole
@@ -62,14 +55,24 @@ public interface RoleDao extends AbstractDao<Role,Serializable>{
 		 * @Author: 李年
 		 * @CreateDate: 2013-4-7
 		 */
-		@Query("select r from Role r where r.defaultOrNo = true")
 		public Role findDefaultRole();
 		/**
-		 * @FunName: findUserByRoleLike
-		 * @Description:  使用角色模糊查询用户
+		 * @Description:根据角色名查询角色
+		 * @param roleName
+		 * @return
+		 */
+		public Role findOne(Serializable roleName);
+		/**
+		 * 保存角色
 		 * @param role
 		 * @return
-		 * @Author: 李年
-		 * @CreateDate: 2013-4-9
 		 */
+		public Role save(Role role);
+		/**
+		 * 删除
+		 * @param role
+		 */
+		public void delete(Role role);
+		
+		public void deleteById(Serializable roleName);
 }

@@ -2,10 +2,6 @@ package com.waimai.service;
 
 import java.io.Serializable;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import com.waimai.model.User;
 import com.waimai.util.PageRainier;
@@ -91,19 +87,6 @@ public interface UserService extends UserDetailsService {
 	 * @CreateDate: 2013-5-24
 	 */
 	public void batchDel(List<User> users);
-	/**
-	 * @FunName: findUserByLike
-	 * @Description:  用户模糊查询
-	 * @param speci
-	 * @param field
-	 * @param condition
-	 * @param pageNo
-	 * @param pageSize
-	 * @return
-	 * @Author: 李年
-	 * @CreateDate: 2013-5-24
-	 */
-	public PageRainier<User> findUserByLike(Specification<User> speci, String field, String condition, Integer pageNo, Integer pageSize);
 	/**
 	 * @FunName: findUserByRoleLike
 	 * @Description:  根据用户的角色模糊查询

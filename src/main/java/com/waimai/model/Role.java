@@ -3,20 +3,7 @@ package com.waimai.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="ROLE")
 public class Role implements Serializable {
 	private static final long serialVersionUID = -3498056750436845009L;
 	private String name;				//角色名
@@ -38,14 +25,12 @@ public class Role implements Serializable {
 		this.desc = desc;
 	}
 
-	@Id
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column(name="describes")
 	public String getDesc() {
 		return desc;
 	}
@@ -56,18 +41,12 @@ public class Role implements Serializable {
 	//只需要设置mappedBy="games"表明role实体是关系被维护端就可以了
     //级联保存、级联删除等之类的属性在多对多关系中是不需要设置
     //不能说删了角色,把用户也删掉,用户还可以有其他的角色
-	@ManyToMany(mappedBy="roles")
 	public List<User> getUsers() {
 		return users;
 	}
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-	@ManyToMany(cascade=CascadeType.PERSIST,fetch=FetchType.EAGER)
-	@JoinTable(name="role_resource",
-				joinColumns=@JoinColumn(name="roleId"),
-				inverseJoinColumns=@JoinColumn(name="resourceId")
-			)
 	public List<Resource> getResources() {
 		return resources;
 	}
@@ -87,11 +66,6 @@ public class Role implements Serializable {
 	public void setMarking(String marking) {
 		this.marking = marking;
 	}
-	@ManyToMany(cascade={CascadeType.MERGE,CascadeType.REFRESH})
-	@JoinTable(name="role_menu",
-				joinColumns=@JoinColumn(name="roleId"),
-				inverseJoinColumns=@JoinColumn(name="menuId")
-			)
 	public List<Menu> getMenus() {
 		return menus;
 	}
@@ -105,7 +79,7 @@ public class Role implements Serializable {
 	public void setDefaultOrNo(boolean defaultOrNo) {
 		this.defaultOrNo = defaultOrNo;
 	}
-	@Temporal(TemporalType.TIMESTAMP)
+	
 	public Date getCreateDate() {
 		return createDate;
 	}

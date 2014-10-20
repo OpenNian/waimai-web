@@ -39,7 +39,7 @@ public class MenuController {
 		String id = request.getParameter("id");
 		String flag = request.getParameter("flag");
 		if(id!=null&&!"0".equals(id)&&roleName!=null&&roleName.trim()!=""){
-			output = generateTreeNodeXmlString(Long.parseLong(id),roleName);
+			output = generateTreeNodeXmlString(Integer.parseInt(id),roleName);
 		}else{
 			if("true".equals(flag)){
 				flag = "true";
@@ -151,7 +151,7 @@ public class MenuController {
 	 * @Author: 李年
 	 * @CreateDate: 2013-5-9
 	 */
-	public String generateTreeNodeXmlString(Long menuId,String name){
+	public String generateTreeNodeXmlString(Integer menuId,String name){
 		StringBuilder sb = new StringBuilder();
 		List<Resource> resources = resourceService.findResourceByParentId(menuId);
 		List<Resource> resourceNames = resourceService.findResourceByRole(name);
@@ -162,7 +162,7 @@ public class MenuController {
 		for(Iterator<Resource>  resIt = resources.iterator();resIt.hasNext();){
 			res = resIt.next();
 			for(Iterator<Resource> it=resourceNames.iterator();it.hasNext();){
-				Long id = it.next().getId();
+				Integer id = it.next().getId();
 				if(res.getId()==id){
 					flag = true;
 					sb.append("<item id='r_"+res.getId()+"' text='"+res.getDescn()+"' checked='1'/>");

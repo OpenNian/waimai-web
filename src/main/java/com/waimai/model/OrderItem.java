@@ -21,6 +21,10 @@ public class OrderItem implements Serializable{
 	 * 菜品
 	 */
 	private Dish dish;
+	/**
+	 * 订单号
+	 */
+	private GoodOrder goodOrder;
 	
 	public int getId() {
 		return id;
@@ -46,5 +50,10 @@ public class OrderItem implements Serializable{
 	public void setDish(Dish dish) {
 		this.dish = dish;
 	}
-	
+	public GoodOrder getGoodOrder() {
+		return goodOrder;
+	}
+	public void setGoodOrder(GoodOrder goodOrder) {
+		this.goodOrder = goodOrder;
+	}
 }

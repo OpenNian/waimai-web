@@ -3,28 +3,14 @@ package com.waimai.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import com.waimai.dao.base.AbstractDao;
 import com.waimai.model.User;
 
 /**
- * @param <ID>
- * @CopyRright (c)2012-20XX:Rainier
- * @Project: auth_core
- * @ModuleID: 
- * @Comments: 
- * @JDK Version Used:<JDK1.6>		
- * @Namespace: cn.rainier.nian.dao
- * @Author: 李年
- * @Create Date: 2013-3-28
- * @Modified By: 
- * @Modified Date: 
- * @Why & What is modified: ? <修改原因描述>		
- * @Version:1.0<版本号>
+ * 
+ * @author li.n1
+ *
  */
-public interface UserDao extends AbstractDao<User,Serializable>{
+public interface UserDao{
 	/**
 	 * @FunName: findByName
 	 * @Description:  通过用户名获得User对象
@@ -33,8 +19,7 @@ public interface UserDao extends AbstractDao<User,Serializable>{
 	 * @Author: 李年
 	 * @CreateDate: 2013-3-28
 	 */
-	@Query("select u from User u where u.username = :username")
-	public User findByName(@Param("username") String username);
+	public User findByName(String username);
 	/**
 	 * @FunName: findUserByLike
 	 * @Description:  模糊查询
@@ -43,8 +28,7 @@ public interface UserDao extends AbstractDao<User,Serializable>{
 	 * @Author: 李年
 	 * @CreateDate: 2013-3-28
 	 */
-	@Query("select u from User u where u.username like :un")
-	public List<User> findUserByLike(@Param("un") String username);
+	public List<User> findUserByLike(String username);
 	/**
 	 * @FunName: getPasswordById
 	 * @Description:  得到密码（已经加密）
@@ -53,10 +37,8 @@ public interface UserDao extends AbstractDao<User,Serializable>{
 	 * @Author: 李年
 	 * @CreateDate: 2013-3-28
 	 */
-	@Query("select u.password from User u where u.id = ?")
 	public String getPasswordById(Serializable id);
-	@Modifying
-	@Query("update User set password = ?2 where username = ?1")
+	
 	public void changePassword(String username,String password);
 	/**
 	 * @FunName: unsubscribe
@@ -65,8 +47,6 @@ public interface UserDao extends AbstractDao<User,Serializable>{
 	 * @Author: 李年
 	 * @CreateDate: 2013-5-8
 	 */
-	@Modifying
-	@Query("update User set accountNonLocked = false,lastCloseDate=NOW() where username = ?1")
 	public void unsubscribe(String username);
 	/**
 	 * @FunName: unsubscribe
@@ -75,7 +55,21 @@ public interface UserDao extends AbstractDao<User,Serializable>{
 	 * @Author: 李年
 	 * @CreateDate: 2013-5-8
 	 */
-	@Modifying
-	@Query("update User set accountNonLocked = false,lastCloseDate=NOW() where id = ?1")
 	public void unsubscribe(Serializable id);
+	public void delete(User model);
+	public void delete(Serializable id);
+	/**
+	 * 批量删除
+	 */
+	public void deleteInBatch(List<User> users);
+	
+	public Long count();
+	
+	public User findOne(Serializable id);
+	/**
+	 * 批量添加
+	 */
+	public List<User> save(List<User> lists);
+	
+	public User save(User model);
 }

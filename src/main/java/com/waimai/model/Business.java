@@ -3,10 +3,6 @@ package com.waimai.model;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
 /**
  * ClassName: Business
  * Desc: 菜品提供商（商家）
@@ -14,8 +10,6 @@ import javax.persistence.Table;
  * @author li.n1 
  * @since JDK 1.6
  */
-@Entity
-@Table(name="business")
 public class Business extends IdEntity implements Serializable{
 	/** 
 	 * serialVersionUID:序列化
@@ -42,6 +36,7 @@ public class Business extends IdEntity implements Serializable{
 	 * 商家所有菜品
 	 */
 	private Set<Dish> dishes;
+	
 	public String getName() {
 		return name;
 	}
@@ -66,7 +61,6 @@ public class Business extends IdEntity implements Serializable{
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	@ManyToMany(mappedBy="businesses")
 	public Set<Dish> getDishes() {
 		return dishes;
 	}

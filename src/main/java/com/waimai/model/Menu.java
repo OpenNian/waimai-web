@@ -3,16 +3,6 @@ package com.waimai.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="MENU")
 public class Menu extends IdEntity implements Serializable{
 	/**
 	 * 
@@ -41,15 +31,12 @@ public class Menu extends IdEntity implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH })
-	@JoinColumn(name="pid")
 	public Menu getParentMenu() {
 		return parentMenu;
 	}
 	public void setParentMenu(Menu parentMenu) {
 		this.parentMenu = parentMenu;
 	}
-	@OneToMany(mappedBy="parentMenu",cascade={CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.REMOVE})
 	public List<Menu> getChildren() {
 		return children;
 	}
@@ -68,7 +55,6 @@ public class Menu extends IdEntity implements Serializable{
 	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
-	@ManyToMany(mappedBy="menus",cascade=CascadeType.PERSIST)
 	public List<Role> getRoles() {
 		return roles;
 	}

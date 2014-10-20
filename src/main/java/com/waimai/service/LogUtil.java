@@ -1,11 +1,15 @@
 package com.waimai.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
+
 import com.waimai.util.LogType;
 
-
+@Service
 public class LogUtil {
+	@Autowired
 	private LogService logService;
 	private static LogUtil instance = null;
 	private LogUtil(){

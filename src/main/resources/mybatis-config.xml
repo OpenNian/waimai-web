@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+	<!-- 给实体Bean一个别名-->
+		<typeAlias type="com.waimai.model.User" alias="User" />
+		<typeAlias type="com.waimai.model.Role" alias="Role" />
+		<typeAlias type="com.waimai.model.Resource" alias="Resource"/>
+		<typeAlias type="com.waimai.model.OrderItem" alias="OrderItem"/>
+		<typeAlias type="com.waimai.model.Menu" alias="Menu"/>
+		<typeAlias type="com.waimai.model.Log" alias="Log"/>
+		<typeAlias type="com.waimai.model.GoodOrder" alias="GoodOrder"/>
+		<typeAlias type="com.waimai.model.Dish" alias="Dish"/>
+		<typeAlias type="com.waimai.model.Business" alias="Business" />
+	</typeAliases>
+</configuration>
