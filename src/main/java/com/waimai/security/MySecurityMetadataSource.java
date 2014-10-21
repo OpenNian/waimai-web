@@ -5,17 +5,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Service;
-
-import com.waimai.dao.ResourceDao;
+import com.waimai.dao.ResourceMapper;
 import com.waimai.model.Resource;
 
 
@@ -29,7 +26,7 @@ import com.waimai.model.Resource;
 @Service
 public class MySecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 	@Autowired
-	private ResourceDao resourceDao;
+	private ResourceMapper resourceDao;
 	private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 
 	public Collection<ConfigAttribute> getAllConfigAttributes() {
@@ -51,7 +48,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 //		System.err.println("-----------MySecurityMetadataSource loadResourceDefine ----------- ");
 		if (resourceMap == null) {
 			resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
-			List<Resource> resources = this.resourceDao.getAllResource();
+			List<Resource> resources = resourceDao.findAll();
 			for (Resource resource : resources) {
 				Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
 				// TODO:ZZQ 通过资源名称来表示具体的权限 注意：必须"ROLE_"开头

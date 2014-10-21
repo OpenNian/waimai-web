@@ -3,18 +3,18 @@ package com.waimai.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.waimai.dao.DishDao;
+import com.waimai.dao.DishMapper;
 import com.waimai.service.DishService;
 
-@Service
+@Service("dishService")
 public class DishServiceImpl implements DishService{
 	@Autowired
-	private DishDao dishDao;
+	private DishMapper dishDao;
 
-	public DishDao getDishDao() {
+	public DishMapper getDishDao() {
 		return dishDao;
 	}
-	public void setDishDao(DishDao dishDao) {
+	public void setDishDao(DishMapper dishDao) {
 		this.dishDao = dishDao;
 	}
 	

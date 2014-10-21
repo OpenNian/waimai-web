@@ -1,22 +1,28 @@
-package com.waimai.service;
+package com.waimai.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.waimai.service.LogService;
 import com.waimai.util.LogType;
 
-@Service
 public class LogUtil {
-	@Autowired
 	private LogService logService;
 	private static LogUtil instance = null;
-	private LogUtil(){
-		WebApplicationContext app = ContextLoader.getCurrentWebApplicationContext();
-		logService = (LogService)app.getBean("logService");
-	}
+	private static WebApplicationContext app = ContextLoader.getCurrentWebApplicationContext();
+	/**
+	 * 确保单例
+	 * @return
+	 */
 	public static synchronized LogUtil getInstance(){
+		//影响性能
+		/*if(instance==null){
+			synchronized(instance){
+				if(instance==null){
+					instance = new LogUtil();
+				}
+			}
+		}*/
 		if(instance==null){
 			instance = new LogUtil();
 		}
@@ -24,6 +30,7 @@ public class LogUtil {
 	}
 	
 	public void log(LogType type,String content){
+		logService = (LogService)app.getBean("logService");
 		logService.log(type, content);
 	}
 	

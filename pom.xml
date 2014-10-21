@@ -13,9 +13,37 @@
     <org.springframework-version>3.1.1.RELEASE</org.springframework-version>
 	<org.aspectj-version>1.7.1</org.aspectj-version>
 	<org.slf4j-version>1.6.6</org.slf4j-version>
+	<log4j-version>1.2.16</log4j-version>
   </properties>
   
   <dependencies>
+  	<!-- logger start -->
+  	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>${org.slf4j-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<version>${org.slf4j-version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>${log4j-version}</version>
+	</dependency>
+  	<!-- logger end -->
   	<!-- aspect start -->
 	<dependency>
 		<groupId>org.aspectj</groupId>
@@ -165,6 +193,11 @@
 		<artifactId>commons-fileupload</artifactId>
 		<version>1.3</version>
 	</dependency>
+	<dependency>
+		<groupId>commons-codec</groupId>
+		<artifactId>commons-codec</artifactId>
+		<version>1.4</version>
+	</dependency>
 	<!-- commons start -->
 	
 	<!-- servlet-api start -->
@@ -212,6 +245,7 @@
 		<version>1.1.1</version>
 	</dependency>
     <!-- mybatis end -->
+    
   </dependencies>
   <build>
     <finalName>waimai-web</finalName>

@@ -1,5 +1,5 @@
 package com.waimai.dao;  
 
-public interface DishDao{
+public interface DishMapper{
 
 }

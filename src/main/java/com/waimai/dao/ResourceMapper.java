@@ -1,18 +1,15 @@
 package com.waimai.dao;
 
 import java.util.List;
-
 import com.waimai.model.Menu;
 import com.waimai.model.Resource;
 
 
 /**
- * @CopyRright (c)2012-20XX:Rainier
  * @Project: auth_core
  * @ModuleID: 
  * @Comments: 
  * @JDK Version Used:<JDK1.6>		
- * @Namespace: cn.rainier.nian.dao
  * @Author: 李年
  * @Create Date: 2013-3-28
  * @Modified By: 
@@ -20,7 +17,8 @@ import com.waimai.model.Resource;
  * @Why & What is modified: ? <修改原因描述>		
  * @Version:1.0<版本号>
  */
-public interface ResourceDao {
+
+public interface ResourceMapper {
 	/**
 	 * @FunName: getAllResource
 	 * @Description:  拿到所有资源
@@ -28,7 +26,7 @@ public interface ResourceDao {
 	 * @Author: 李年
 	 * @CreateDate: 2013-3-28
 	 */
-	public List<Resource> getAllResource();
+	public List<Resource> findAll();
 	/**
 	 * @FunName: findResourceByParentId
 	 * @Description:  通过二级菜单获取三级可以显示的资源

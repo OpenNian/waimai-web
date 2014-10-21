@@ -20,6 +20,10 @@ public class User extends IdEntity implements UserDetails{
 	private boolean enabled;			//账号是否可用  true为可用，false不可用
 	private boolean accountNonLocked;	//账号是否被锁！true为没锁，false为已锁
 	private Date lastCloseDate;			//最近一次禁用或者注销时间
+	private String email;				//邮箱
+	private String mobile;				//手机号码
+	private Date createTime;			//创建时间
+	private Integer score;				//积分
 	
 	/**
 	 * 所属角色
@@ -124,4 +128,37 @@ public class User extends IdEntity implements UserDetails{
 	public void setLastCloseDate(Date lastCloseDate) {
 		this.lastCloseDate = lastCloseDate;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+	
 }

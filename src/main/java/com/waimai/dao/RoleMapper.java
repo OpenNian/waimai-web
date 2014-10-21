@@ -2,18 +2,15 @@ package com.waimai.dao;
 
 import java.io.Serializable;
 import java.util.List;
-
 import com.waimai.model.Role;
 import com.waimai.model.User;
 
 
 /**
- * @CopyRright (c)2012-20XX:Rainier
  * @Project: auth_core
  * @ModuleID: 
  * @Comments: 
  * @JDK Version Used:<JDK1.6>		
- * @Namespace: cn.rainier.nian.dao
  * @Author: 李年
  * @Create Date: 2013-3-28
  * @Modified By: 
@@ -21,7 +18,7 @@ import com.waimai.model.User;
  * @Why & What is modified: ? <修改原因描述>		
  * @Version:1.0<版本号>
  */
-public interface RoleDao {
+public interface RoleMapper {
 	/**
 	 * @FunName: findUserByRole
 	 * @Description:  查询此角色下的所有用户

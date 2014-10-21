@@ -2,8 +2,8 @@ package com.waimai.dao;
 
 import com.waimai.model.Log;
 
-public interface LogDao {
+public interface LogMapper {
 
-	Log save(Log log);
+	int save(Log log);
 
 }

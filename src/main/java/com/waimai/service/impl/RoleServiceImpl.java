@@ -6,16 +6,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.waimai.dao.RoleDao;
+import com.waimai.dao.RoleMapper;
 import com.waimai.model.Role;
 import com.waimai.model.User;
 import com.waimai.service.RoleService;
 import com.waimai.util.PageRainier;
 
-@Service
-public class RoleServiceImpl extends RoleService{
+@Service("roleService")
+public class RoleServiceImpl implements RoleService{
 	@Autowired
-	private RoleDao roleDao;
+	private RoleMapper roleDao;
 	/**
 	 * @FunName: findAllByAjax
 	 * @Description:  ajax异步拿到所有角色的name与desc属性
@@ -24,7 +24,7 @@ public class RoleServiceImpl extends RoleService{
 	 * @CreateDate: 2013-5-24
 	 */
 	public List<Object[]> findAllByAjax() {
-		return this.getRoleDao().finAllByAjax();
+		return roleDao.finAllByAjax();
 	}
 
 	public PageRainier<Role> findAll(Integer pageNo, Integer pageSize, boolean b) {

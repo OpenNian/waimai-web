@@ -5,43 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.waimai.dao.MenuDao;
-import com.waimai.dao.ResourceDao;
+import com.waimai.dao.MenuMapper;
+import com.waimai.dao.ResourceMapper;
 import com.waimai.model.Menu;
 import com.waimai.model.Resource;
 import com.waimai.service.ResourceService;
 
-@Service
-public class ResourceServiceImpl extends ResourceService{
+@Service("resourceService")
+public class ResourceServiceImpl implements ResourceService{
 	@Autowired
-	private ResourceDao resourceDao;
+	private ResourceMapper resourceDao;
 	@Autowired
-	private MenuDao menuDao;
-	/**
-	 * 通过父菜单得到资源
-	 * （通过二级菜单得到三级资源）
-	 * 只获取可以显示的资源
-	 */
-	public List<Resource> findResourceByParentId(Integer menuId){
-		return this.getResourceDao().findResourceByParentId(menuId);
-	}
-	/**
-	 * @FunName: findAllResourceByParentId
-	 * @Description:  获取全部子资源
-	 * @param menuId
-	 * @return
-	 * @Author: 李年
-	 * @CreateDate: 2013-6-5
-	 */
-	public List<Resource> findAllResourceByParentId(Integer menuId){
-		return this.getResourceDao().findAllResourceByParentId(menuId);
-	}
-	/**
-	 * 通过角色拿到所有能访问的资源
-	 */
-	public List<Resource> findResourceByRole(String name) {
-		return this.getResourceDao().findResourceByRole(name);
-	}
+	private MenuMapper menuDao;
+	
 	/**
 	 * @FunName: loadMenuByResourceId
 	 * @Description:  查找权限资源所属的二级菜单
@@ -51,7 +27,7 @@ public class ResourceServiceImpl extends ResourceService{
 	 * @CreateDate: 2013-5-24
 	 */
 	public Menu loadMenuByResourceId(Integer resourceId){
-		return this.getMenuDao().loadMenuByResourceId(resourceId);
+		return menuDao.loadMenuByResourceId(resourceId);
 	}
 	
 	/**
@@ -97,6 +73,6 @@ public class ResourceServiceImpl extends ResourceService{
 	 * @CreateDate: 2013-5-24
 	 */
 	public Resource loadResourceByResource(Integer id){
-		return this.getResourceDao().loadResourceByResourceId(id,menuDao.findOne(id));
+		return resourceDao.loadResourceByResourceId(id,menuDao.findOne(id));
 	}
 }

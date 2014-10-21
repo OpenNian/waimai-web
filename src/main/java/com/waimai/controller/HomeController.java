@@ -3,7 +3,10 @@ package com.waimai.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,12 +19,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.waimai.model.User;
 import com.waimai.service.UserService;
-import com.waimai.service.impl.UserServiceImpl;
-
+import com.waimai.service.impl.LogUtil;
+import com.waimai.util.LogType;
 
 
 /**
@@ -37,6 +39,8 @@ public class HomeController {
 	@Autowired
 	private AuthenticationManager myAuthenticationManager;
 	
+	private final static Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
 	@RequestMapping(value={"/index","/",""}, method = RequestMethod.GET)
 	public String home(Model model) {
 		return "admin/index";
@@ -44,7 +48,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model,HttpServletRequest request) {
-		System.out.println(34234);
 		//重新登录时销毁该用户的Session
 		Object o = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
 		if(null != o){
@@ -61,16 +64,17 @@ public class HomeController {
 			}
 			if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 				request.setAttribute("error","用户名或密码不能为空！");
-				return "/background/framework/login";
+				return "/admin/login";
 			}
 			// 验证用户账号与密码是否正确
 			User users = this.userService.loadUserByName(username);
-			if (users == null || !users.getPassword().equals(password)) {
+			if (users == null || !users.getPassword().equals(DigestUtils.md5Hex(password))) {
 				request.setAttribute("error", "用户或密码不正确！");
-			    return "/background/framework/login";
+			    return "/admin/login";
 			}
+			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username,DigestUtils.md5Hex(password));
 			Authentication authentication = myAuthenticationManager
-					.authenticate(new UsernamePasswordAuthenticationToken(username,password));
+					.authenticate(token);
 			SecurityContext securityContext = SecurityContextHolder.getContext();
 			securityContext.setAuthentication(authentication);
 			HttpSession session = request.getSession(true);  
@@ -82,11 +86,13 @@ public class HomeController {
 			//userLoginList.setUserId(users.getUserId());
 			//userLoginList.setLoginIp(Common.toIpAddr(request));
 			//userLoginListService.add(userLoginList);
-		} catch (AuthenticationException ae) {  
+			LogUtil.getInstance().log(LogType.LOGIN, "用户登录");
+		} catch (AuthenticationException ae) {
+			logger.error("登录异常，请联系管理员！", ae);
 			request.setAttribute("error", "登录异常，请联系管理员！");
-		    return "/background/framework/login";
+		    return "/admin/login";
 		}
-		return "redirect:index.html";
+		return "redirect:index.htm";
 	}
 	
 }

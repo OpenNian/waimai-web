@@ -37,6 +37,12 @@ public class GoodOrder extends IdEntity implements Serializable{
 	 * 菜品总价
 	 */
 	private double goodPrice;
+	/**
+	 * 订单状态;
+	 * 暂时：1、正常；
+	 */
+	//TODO 状态需要确定哪几种
+	private Integer status;
 	public int getOrderNo() {
 		return orderNo;
 	}
@@ -67,4 +73,11 @@ public class GoodOrder extends IdEntity implements Serializable{
 	public void setGoodPrice(double goodPrice) {
 		this.goodPrice = goodPrice;
 	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
 }

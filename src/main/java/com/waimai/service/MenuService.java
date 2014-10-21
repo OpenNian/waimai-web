@@ -2,7 +2,7 @@ package com.waimai.service;
 
 import java.io.Serializable;
 
-import com.waimai.dao.MenuDao;
+import com.waimai.dao.MenuMapper;
 import com.waimai.model.Menu;
 
 

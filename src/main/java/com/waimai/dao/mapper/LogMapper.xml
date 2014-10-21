@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waimai.dao.LogMapper">
+	<insert id="save" parameterType="Log" useGeneratedKeys="true" keyProperty="id">
+		insert into log(
+		content,type,operator,operatorRealName,menu,createTime
+		) 
+		values(
+		#{content,jdbcType=VARCHAR},
+		#{type},
+		#{operator},
+		#{operatorRealName,jdbcType=VARCHAR},
+		#{menu.name,jdbcType=VARCHAR},
+		#{createTime}
+		)
+	</insert>
+</mapper>

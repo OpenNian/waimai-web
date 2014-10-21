@@ -2,7 +2,9 @@ package com.waimai.service;
 
 import java.io.Serializable;
 import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
+
 import com.waimai.model.User;
 import com.waimai.util.PageRainier;
 
@@ -123,5 +125,7 @@ public interface UserService extends UserDetailsService {
 	 * @CreateDate: 2013-5-24
 	 */
 	public void unsubscribe(Serializable id);
+	
+	public void resetPassword(String username);
 	
 }

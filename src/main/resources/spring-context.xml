@@ -22,7 +22,7 @@
 
 	<context:component-scan base-package="com.waimai" />
 	<context:property-placeholder location="classpath*:jdbc.properties" />
-	<bean id="dataSource" destroy-method="close"
+	<!-- <bean id="dataSource" destroy-method="close"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driver}"></property>
 		<property name="url" value="${jdbc.url}"></property>
@@ -31,6 +31,21 @@
 		<property name="maxActive" value="1000"></property>
 		<property name="maxWait" value="3000"></property>
 		<property name="maxIdle" value="20"></property>
+	</bean> -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>${jdbc.driver}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
 	</bean>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
@@ -63,7 +78,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="mapperLocations"
-			value="classpath*:com/waimai/dao/mapper/*-mapper.xml" />
+			value="classpath*:com/waimai/dao/mapper/*.xml" />
 	</bean>
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />

@@ -2,6 +2,7 @@ package com.waimai.service;
 
 import java.io.Serializable;
 import java.util.List;
+
 import com.waimai.model.Role;
 import com.waimai.model.User;
 
@@ -60,4 +61,5 @@ public interface RoleService {
 	 * @CreateDate: 2013-5-24
 	 */
 	public List<User> findUserByRole(Serializable roleId);
+	public Object findAllByAjax();
 }

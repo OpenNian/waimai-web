@@ -2,7 +2,7 @@ package com.waimai.dao;
 
 import java.io.Serializable;
 import java.util.List;
-
+import org.apache.ibatis.annotations.Param;
 import com.waimai.model.User;
 
 /**
@@ -10,7 +10,8 @@ import com.waimai.model.User;
  * @author li.n1
  *
  */
-public interface UserDao{
+
+public interface UserMapper{
 	/**
 	 * @FunName: findByName
 	 * @Description:  通过用户名获得User对象
@@ -28,7 +29,7 @@ public interface UserDao{
 	 * @Author: 李年
 	 * @CreateDate: 2013-3-28
 	 */
-	public List<User> findUserByLike(String username);
+	public List<User> findUserByLike(String keyword);
 	/**
 	 * @FunName: getPasswordById
 	 * @Description:  得到密码（已经加密）
@@ -39,7 +40,7 @@ public interface UserDao{
 	 */
 	public String getPasswordById(Serializable id);
 	
-	public void changePassword(String username,String password);
+	public Boolean changePassword(@Param("username") String username,@Param("password") String password);
 	/**
 	 * @FunName: unsubscribe
 	 * @Description:  通过username注销用户
@@ -47,7 +48,7 @@ public interface UserDao{
 	 * @Author: 李年
 	 * @CreateDate: 2013-5-8
 	 */
-	public void unsubscribe(String username);
+	public Boolean unsubscribe(String username);
 	/**
 	 * @FunName: unsubscribe
 	 * @Description:  通过User主键注销用户
@@ -55,13 +56,13 @@ public interface UserDao{
 	 * @Author: 李年
 	 * @CreateDate: 2013-5-8
 	 */
-	public void unsubscribe(Serializable id);
-	public void delete(User model);
-	public void delete(Serializable id);
+	public Boolean unsubscribe(Serializable id);
+	public Boolean delete(User model);
+	public Boolean delete(Serializable id);
 	/**
 	 * 批量删除
 	 */
-	public void deleteInBatch(List<User> users);
+	public Boolean deleteInBatch(List<User> users);
 	
 	public Long count();
 	

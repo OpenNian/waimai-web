@@ -31,7 +31,7 @@ public class Log implements Serializable {
 	 */
 	private Menu menu;
 	/**
-	 * 操作T时间
+	 * 操作时间
 	 */
 	private Date createTime;
 	/**

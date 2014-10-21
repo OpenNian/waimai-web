@@ -34,7 +34,9 @@ public enum LogType implements Serializable{
 	/**
 	 * 发布
 	 */
-	PUBLISH("发布");
+	PUBLISH("发布"),
+	
+	LOGIN("登录");
 
 	private String name;
 	private LogType(String name){

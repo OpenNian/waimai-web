@@ -7,16 +7,16 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.waimai.dao.MenuDao;
+import com.waimai.dao.MenuMapper;
 import com.waimai.model.Menu;
 import com.waimai.model.Role;
 import com.waimai.service.MenuService;
 
 
-@Service
-public class MenuServiceImpl extends MenuService{
+@Service("menuService")
+public class MenuServiceImpl implements MenuService{
 	@Autowired
-	private MenuDao menuDao;
+	private MenuMapper menuDao;
 	/**
 	 * @FunName: findParentMenuByRole
 	 * @Description:  根据所属角色查找能访问的一级菜单
@@ -85,10 +85,10 @@ public class MenuServiceImpl extends MenuService{
 		return menuDao.findOne(id);
 	}
 
-	public MenuDao getMenuDao() {
+	public MenuMapper getMenuDao() {
 		return menuDao;
 	}
-	public void setMenuDao(MenuDao menuDao) {
+	public void setMenuDao(MenuMapper menuDao) {
 		this.menuDao = menuDao;
 	}
 }

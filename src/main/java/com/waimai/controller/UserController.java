@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +20,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.waimai.model.Role;
 import com.waimai.model.User;
-import com.waimai.service.LogUtil;
-import com.waimai.service.impl.RoleServiceImpl;
-import com.waimai.service.impl.UserServiceImpl;
+import com.waimai.service.RoleService;
+import com.waimai.service.UserService;
+import com.waimai.service.impl.LogUtil;
 import com.waimai.util.LogType;
 import com.waimai.util.MsgUtil;
 import com.waimai.util.PageRainier;
@@ -34,9 +33,9 @@ import com.waimai.util.PageRainier;
 @Scope("prototype")
 public class UserController {
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	@Autowired
-	private RoleServiceImpl roleService;
+	private RoleService roleService;
 	private PageRainier<User> users;
 	private Integer pageSize = 10;
 	
@@ -220,19 +219,19 @@ public class UserController {
 		this.pageSize = pageSize;
 	}
 
-	public UserServiceImpl getUserService() {
+	public UserService getUserService() {
 		return userService;
 	}
 
-	public void setUserService(UserServiceImpl userService) {
+	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 
-	public RoleServiceImpl getRoleService() {
+	public RoleService getRoleService() {
 		return roleService;
 	}
 
-	public void setRoleService(RoleServiceImpl roleService) {
+	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
 

@@ -20,31 +20,30 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.cache.NullUserCache;
 import org.springframework.stereotype.Service;
 
-import com.waimai.dao.ResourceDao;
-import com.waimai.dao.UserDao;
+import com.waimai.dao.ResourceMapper;
+import com.waimai.dao.UserMapper;
 import com.waimai.model.Resource;
 import com.waimai.model.User;
 import com.waimai.service.UserService;
 import com.waimai.util.PageRainier;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 	@Autowired
-	private UserDao userDao;
+	private UserMapper userDao;
 	private UserCache userCache = new NullUserCache();
 	@Autowired
-	private ResourceDao resourceDao ;
+	private ResourceMapper resourceDao ;
 	/**
 	 * 根据用户名查询用户，用户名唯一
 	 */
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException, DataAccessException {
-		User user =  this.loadUserByName(username);
-		return user;
+		return loadUserByName(username);
 	}
 	
-	public User loadUserByName(String userid) {
-		return userDao.findByName(userid);
+	public User loadUserByName(String username) {
+		return userDao.findByName(username);
 	}
 	
 	/**
@@ -91,11 +90,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.getPasswordById(id);
 	}
 
-	public UserDao getUserDao() {
+	public UserMapper getUserDao() {
 		return userDao;
 	}
 
-	public void setUserDao(UserDao userDao) {
+	public void setUserDao(UserMapper userDao) {
 		this.userDao = userDao;
 	}
 

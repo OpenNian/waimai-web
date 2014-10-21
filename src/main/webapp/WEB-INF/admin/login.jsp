@@ -6,17 +6,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 <meta http-equiv="description" content="brigtengold login"> 
 <meta http-equiv="author" content="brigtengold"> 
-<title>GELAIMEI Furniture login</title>
+<title>我的外卖，崛起吧——崛起的外卖网，提供快速，方便，好用的外卖服务，其服务与各中小店铺</title>
 <link href="${ctx }resources/css/login.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-  <form action="${ctx }admin/j_spring_security_check" id="login" method="post">
+  <form action="${ctx }background/loginCheck.htm" id="login" method="post">
   	<h1>Log In</h1>
-	  <div style="margin-top: 15px;color:red;" id="messageDiv">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message }</div>
+	  <div style="margin-top: 15px;color:red;" id="messageDiv">${requestScope.error }</div>
   	<fieldset id="inputs">
-  		<input id="username" name="j_username" type="text" placeholder="Username" 
+  		<input id="username" name="username" type="text" placeholder="Username" 
   		value="${sessionScope['SPRING_SECURITY_LAST_USERNAME']}" autofocus required/>
-  		<input id="password" name="j_password" type="password" placeholder="Password" required/>
+  		<input id="password" name="password" type="password" placeholder="Password" required/>
   	</fieldset>
   	<fieldset id="actions">
   		<input id="submit" type="submit" value="Log in"/>
