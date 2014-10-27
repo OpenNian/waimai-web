@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waimai.dao.permission.UserMapper">
+	<select id="findByName" resultType="User" parameterType="String">
+		select id,username,password,enabled,mobile,createTime,accountNonLocked from user where username=#{username}
+	</select>
+	<select id="findUserByLike" resultType="User" parameterType="String">
+		select username,enabled,mobile,createTime from user u where u.username like CONCAT('%','${keyword}','%')
+	</select>
+	<select id="getPasswordById" resultType="String" parameterType="java.io.Serializable">
+		select u.password from user u where u.id = #{id}
+	</select>
+	<update id="changePassword">
+		update user set password = #{password} where username = #{username}
+	</update>
+	<update id="unsubscribe" parameterType="String">
+		update user set accountNonLocked = false,lastCloseDate=NOW() where username = #{username}
+	</update>
+	<delete id="delete" parameterType="String">
+		delete from user where username = #{username}
+	</delete>
+</mapper>

@@ -5,15 +5,18 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Service;
-import com.waimai.dao.ResourceMapper;
-import com.waimai.model.Resource;
+
+import com.waimai.dao.permission.ResourceMapper;
+import com.waimai.model.permission.Resource;
 
 
 /**

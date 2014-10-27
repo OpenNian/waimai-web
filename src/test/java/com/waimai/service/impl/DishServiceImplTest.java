@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.waimai.model.Dish;
-import com.waimai.service.DishService;
+import com.waimai.model.dish.Dish;
+import com.waimai.service.dish.DishService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="applicationContext.xml")

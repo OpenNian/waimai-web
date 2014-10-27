@@ -1,8 +1,8 @@
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Calendar"%>
-<%@page import="com.waimai.service.impl.MenuServiceImpl"%>
-<%@page import="com.waimai.model.Menu"%>
+<%@page import="com.waimai.service.permission.impl.MenuServiceImpl"%>
+<%@page import="com.waimai.model.permission.Menu"%>
 <%@page import="org.springframework.web.context.ContextLoader"%>
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
