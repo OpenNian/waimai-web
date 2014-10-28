@@ -78,7 +78,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="mapperLocations"
-			value="classpath*:com/waimai/dao/*/*Mapper.xml" />
+			value="classpath*:com/waimai/dao/mapper/*.xml" />
 	</bean>
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
