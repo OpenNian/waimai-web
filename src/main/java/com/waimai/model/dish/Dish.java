@@ -32,6 +32,13 @@ public class Dish extends IdEntity implements Serializable{
 	 * 菜品的提供商
 	 */
 	private Set<Business> businesses;
+
+	/**
+	 * 该菜几元起价
+	 * 
+	 */
+	private Integer Lowprice;
+	
 	/**
 	 * 菜品图片
 	 */
@@ -81,6 +88,12 @@ public class Dish extends IdEntity implements Serializable{
 	}
 	public String getImg() {
 		return img;
+	}
+	public Integer getLowprice() {
+		return Lowprice;
+	}
+	public void setLowprice(Integer lowprice) {
+		Lowprice = lowprice;
 	}
 	public void setImg(String img) {
 		this.img = img;
