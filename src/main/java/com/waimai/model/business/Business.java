@@ -39,7 +39,17 @@ public class Business extends IdEntity implements Serializable{
 	 * 商家所有菜品
 	 */
 	private Set<Dish> dishes;
+	/**
+	 * 商家描述介绍等
+	 */
+	private String describe;
 	
+	public String getDescribe() {
+		return describe;
+	}
+	public void setDescribe(String describe) {
+		this.describe = describe;
+	}
 	public String getName() {
 		return name;
 	}
