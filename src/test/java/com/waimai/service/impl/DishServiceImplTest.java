@@ -12,7 +12,8 @@ import com.waimai.model.dish.Dish;
 import com.waimai.service.dish.DishService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="applicationContext.xml")
+
+@ContextConfiguration(locations={"classpath:spring-context.xml","classpath:spring-security.xml","classpath:spring/application-permission.xml"})
 public class DishServiceImplTest {
 	@Autowired
 	private DishService dishService;
