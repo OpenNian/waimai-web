@@ -8,7 +8,7 @@ import com.waimai.model.IdEntity;
  * ClassName: Dish
  * Desc: 短信实体类
  * date: 2014-9-22 下午2:27:16
- * @author li.n1 
+ * @author hu xiaolong 
  * @since JDK 1.6
  */
 public class Message extends IdEntity implements Serializable {
@@ -16,15 +16,14 @@ public class Message extends IdEntity implements Serializable {
 	/**
 	 * 表主键id 
 	 */
-    private String MesageId;
-    
+    private String mesageNo;
 	/**
      * 订单编号
      *  
      */
-    private String Orgid;
+    private String orderNo;
 	/**
-     * 联系电话 
+     * 接收人联系电话 
      */
     private String telephone;
     /**
@@ -36,14 +35,7 @@ public class Message extends IdEntity implements Serializable {
 	 * 短信发送时间
 	 */
 	private Date createTime;
-    
-   
-	public String getOrgid() {
-		return Orgid;
-	}
-	public void setOrgid(String orgid) {
-		Orgid = orgid;
-	}
+	
 	public String getTelephone() {
 		return telephone;
 	}
@@ -62,10 +54,17 @@ public class Message extends IdEntity implements Serializable {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public String getMesageId() {
-		return MesageId;
+	public String getMesageNo() {
+		return mesageNo;
 	}
-	public void setMesageId(String mesageId) {
-		MesageId = mesageId;
+	public void setMesageNo(String mesageNo) {
+		this.mesageNo = mesageNo;
 	}
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	
 }
