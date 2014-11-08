@@ -22,7 +22,7 @@ public class GoodOrder extends IdEntity implements Serializable{
 	/**
 	 * 订单号
 	 */
-	private int orderNo;
+	private String orderNo;
 	/**
 	 * 订单产生时间
 	 */
@@ -38,17 +38,17 @@ public class GoodOrder extends IdEntity implements Serializable{
 	/**
 	 * 菜品总价
 	 */
-	private double goodPrice;
+	private String goodPrice;
 	/**
 	 * 订单状态;
 	 * 暂时：1、正常；
 	 */
 	//TODO 状态需要确定哪几种
 	private Integer status;
-	public int getOrderNo() {
+	public String getOrderNo() {
 		return orderNo;
 	}
-	public void setOrderNo(int orderNo) {
+	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
 	public Date getCreateTime() {
@@ -69,10 +69,10 @@ public class GoodOrder extends IdEntity implements Serializable{
 	public void setGoodNum(int goodNum) {
 		this.goodNum = goodNum;
 	}
-	public double getGoodPrice() {
+	public String getGoodPrice() {
 		return goodPrice;
 	}
-	public void setGoodPrice(double goodPrice) {
+	public void setGoodPrice(String goodPrice) {
 		this.goodPrice = goodPrice;
 	}
 	public Integer getStatus() {
