@@ -12,6 +12,7 @@ import com.waimai.model.IdEntity;
  * @since JDK 1.6
  */
 public class Message extends IdEntity implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 表主键id 
@@ -66,5 +67,4 @@ public class Message extends IdEntity implements Serializable {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
-	
 }
