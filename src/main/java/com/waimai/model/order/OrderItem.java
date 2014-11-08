@@ -1,8 +1,7 @@
 package com.waimai.model.order;  
 
 import java.io.Serializable;
-
-import com.waimai.model.dish.Dish;
+import java.util.Date;
 
 public class OrderItem implements Serializable{
 	/** 
@@ -22,12 +21,13 @@ public class OrderItem implements Serializable{
 	/**
 	 * 菜品
 	 */
-	private Dish dish;
+	private String dishNo;
 	/**
 	 * 订单号
 	 */
-	private GoodOrder goodOrder;
+	private String orderNo;
 	
+	private Date createTime;
 	public int getId() {
 		return id;
 	}
@@ -46,16 +46,23 @@ public class OrderItem implements Serializable{
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	public Dish getDish() {
-		return dish;
+	public String getDishNo() {
+		return dishNo;
 	}
-	public void setDish(Dish dish) {
-		this.dish = dish;
+	public void setDishNo(String dishNo) {
+		this.dishNo = dishNo;
 	}
-	public GoodOrder getGoodOrder() {
-		return goodOrder;
+	public String getOrderNo() {
+		return orderNo;
 	}
-	public void setGoodOrder(GoodOrder goodOrder) {
-		this.goodOrder = goodOrder;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	
 }

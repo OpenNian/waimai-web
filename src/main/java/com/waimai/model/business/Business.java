@@ -42,13 +42,14 @@ public class Business extends IdEntity implements Serializable{
 	/**
 	 * 商家描述介绍等
 	 */
-	private String describe;
+	private String busdetail;
 	
-	public String getDescribe() {
-		return describe;
+	
+	public String getBusdetail() {
+		return busdetail;
 	}
-	public void setDescribe(String describe) {
-		this.describe = describe;
+	public void setBusdetail(String busdetail) {
+		this.busdetail = busdetail;
 	}
 	public String getName() {
 		return name;
