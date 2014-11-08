@@ -24,6 +24,10 @@ public class Business extends IdEntity implements Serializable{
 	 */
 	private String name;
 	/**
+	 * 商家名编号
+	 */
+	private String bussinesNo;
+	/**
 	 * 商家地址
 	 */
 	private String address;
@@ -74,6 +78,12 @@ public class Business extends IdEntity implements Serializable{
 	}
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+	public String getBussinesNo() {
+		return bussinesNo;
+	}
+	public void setBussinesNo(String bussinesNo) {
+		this.bussinesNo = bussinesNo;
 	}
 	public Set<Dish> getDishes() {
 		return dishes;

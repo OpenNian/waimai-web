@@ -31,14 +31,13 @@ public class Dish extends IdEntity implements Serializable{
 	/**
 	 * 菜品的提供商
 	 */
-	private String businessId;
+	private String businessNo;
 
 	/**
 	 * 该菜几元起价
 	 * 
 	 */
 	private Integer Lowprice;
-	
 	/**
 	 * 菜品图片
 	 */
@@ -81,11 +80,11 @@ public class Dish extends IdEntity implements Serializable{
 		this.price = price;
 	}
 	
-	public String getBusinessId() {
-		return businessId;
+	public String getBusinessNo() {
+		return businessNo;
 	}
 	public void setBusinessId(String businessId) {
-		this.businessId = businessId;
+		this.businessNo = businessId;
 	}
 	public String getImg() {
 		return img;
