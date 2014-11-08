@@ -13,5 +13,6 @@
 		<typeAlias type="com.waimai.model.order.GoodOrder" alias="GoodOrder"/>
 		<typeAlias type="com.waimai.model.dish.Dish" alias="Dish"/>
 		<typeAlias type="com.waimai.model.business.Business" alias="Business" />
+		<typeAlias type="com.waimai.model.message.Message" alias="Message" />
 	</typeAliases>
 </configuration>

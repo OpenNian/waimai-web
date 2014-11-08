@@ -2,5 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.waimai.dao.business.BusinessMapper">
-	
+	<select id="getBusinessByName" resultType="Business" parameterType="string">  
+        select *  
+        from businesses  
+        where name=#{name}  
+    </select>  
+    <insert id="saveBusiness" parameterType="Business">  
+        insert into businesses(businessesid,name,price,address,headname,telephone,describe,createTime)  
+        value(#{businessesid},#{name},#{price},#{address},#{headname},#{telephone},#{describe},#{createTime})  
+    </insert>  
+    <update id="businesses" parameterType="Business">  
+        update book   
+        set  
+        name=#{name},  
+        price=#{price}  
+        where isbn=#{isbn}  
+    </update>  
+    <delete id="deleteBusinesls" parameterType="String">  
+        delete from businesses where name=#{name}       
+    </delete>  
 </mapper>
