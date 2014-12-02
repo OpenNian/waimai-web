@@ -2,8 +2,6 @@ package com.waimai.model.order;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-
 import com.waimai.model.IdEntity;
 
 /**
@@ -28,10 +26,6 @@ public class GoodOrder extends IdEntity implements Serializable{
 	 */
 	private Date createTime;
 	/**
-	 * 订单项
-	 */
-	private Set<OrderItem> items;
-	/**
 	 * 菜品总数
 	 */
 	private int goodNum;
@@ -41,9 +35,8 @@ public class GoodOrder extends IdEntity implements Serializable{
 	private String goodPrice;
 	/**
 	 * 订单状态;
-	 * 暂时：1、正常；
+	 * 暂时：1=正常；0=删除；2=锁定
 	 */
-	//TODO 状态需要确定哪几种
 	private Integer status;
 	public String getOrderNo() {
 		return orderNo;
@@ -56,12 +49,6 @@ public class GoodOrder extends IdEntity implements Serializable{
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-	public Set<OrderItem> getItems() {
-		return items;
-	}
-	public void setItems(Set<OrderItem> items) {
-		this.items = items;
 	}
 	public int getGoodNum() {
 		return goodNum;

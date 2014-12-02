@@ -31,6 +31,12 @@ import com.waimai.util.PageRainier;
 @Controller
 @RequestMapping("/admin/sys/user")
 @Scope("prototype")
+/**
+ * UserController:管理员的类
+ * nian ge
+ * 2014年11月29日 下午10:05:35
+ * @version 1.0.0
+ */
 public class UserController {
 	@Autowired
 	private UserService userService;

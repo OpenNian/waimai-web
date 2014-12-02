@@ -2,10 +2,7 @@ package com.waimai.model.dish;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-
 import com.waimai.model.IdEntity;
-import com.waimai.model.business.Business;
 
 /**
  * ClassName: Dish
@@ -37,7 +34,7 @@ public class Dish extends IdEntity implements Serializable{
 	 * 该菜几元起价
 	 * 
 	 */
-	private Integer Lowprice;
+	private int lowprice;
 	/**
 	 * 菜品图片
 	 */
@@ -45,7 +42,7 @@ public class Dish extends IdEntity implements Serializable{
 	/**
 	 * 销售份数
 	 */
-	private long saleNum;
+	private int saleNum;
 	/**
 	 * 排序号
 	 */
@@ -59,7 +56,7 @@ public class Dish extends IdEntity implements Serializable{
 	 */
 	private boolean hotOrNot;
 	/**
-	 * 菜品唯一的编码；
+	 * 菜品唯一的编码，使用uuid
 	 */
 	private String dishNo;
 	/**
@@ -89,19 +86,19 @@ public class Dish extends IdEntity implements Serializable{
 	public String getImg() {
 		return img;
 	}
-	public Integer getLowprice() {
-		return Lowprice;
+	public int getLowprice() {
+		return lowprice;
 	}
-	public void setLowprice(Integer lowprice) {
-		Lowprice = lowprice;
+	public void setLowprice(int lowprice) {
+		this.lowprice = lowprice;
 	}
 	public void setImg(String img) {
 		this.img = img;
 	}
-	public long getSaleNum() {
+	public int getSaleNum() {
 		return saleNum;
 	}
-	public void setSaleNum(long saleNum) {
+	public void setSaleNum(int saleNum) {
 		this.saleNum = saleNum;
 	}
 	public int getSortNum() {
@@ -133,5 +130,8 @@ public class Dish extends IdEntity implements Serializable{
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	public void setBusinessNo(String businessNo) {
+		this.businessNo = businessNo;
 	}
 }

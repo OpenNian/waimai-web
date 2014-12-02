@@ -1,152 +1,118 @@
-<%@page import="java.util.Locale"%>
-<%@page import="java.util.TimeZone"%>
-<%@page import="java.util.Calendar"%>
-<%@page import="com.waimai.service.permission.impl.MenuServiceImpl"%>
-<%@page import="com.waimai.model.permission.Menu"%>
-<%@page import="org.springframework.web.context.ContextLoader"%>
-<%@page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@include file="/WEB-INF/commons/include.jsp" %>
-     <html>
-    <head>
-    <meta charset="utf-8"/>
-	<title>header</title>
-	<script type="text/javascript" src="${ctx }resources/js/jquery.equalHeight.js"></script>
-	<script type="text/javascript">
-	    $(function(){
-	        $('.column').equalHeight();
-	    });
-	</script>
-	<c:choose>
-		<c:when test="${!empty session.menuXml }">
-			<script type="text/javascript">
-			var da = loadXML("${session.menuXml}");
-			var pMenu = $(da).find("item[url='javascript:void(0);']");
-			var str = "";
-			if((pMenu!=null)&&(pMenu.length!=0)){
-				for(var i=0;i<pMenu.length;i++){
-					var pmenu = $(pMenu[i]);
-					var name = pmenu.attr("text");
-					var url = pmenu.attr("url");
-					str+= "<h3><a href='"+url+"' id='nav_"+(i+1)+"' title="+name+">"+name+"</a></h3>";
-					var sMenu = pmenu.find("item");
-					var length = sMenu.length;
-					if((sMenu!=null)&&(length!=0)){
-						str+="<ul class='toggle'>";
-						for(var j=0;j<length;j++){
-							var smenu = $(sMenu[j]);
-							var smenuName = smenu.attr("text");
-							var smenuUrl = smenu.attr("url");
-							var id = smenu.attr("id");
-							str+="<li class='icn_"+id+"'><a title="+smenuName+" href='${ctx}"+smenuUrl+"'>"+smenuName+"</a></li>";
-						}
-						str+="</ul>";
-					};
-				};
-			};
-
-			function loadXML(xmlString){
-			    var xmlDoc;
-			    if (window.ActiveXObject)
-			    {
-			        xmlDoc = new ActiveXObject('Microsoft.XMLDOM');
-			        if(!xmlDoc) xmldoc = new ActiveXObject("MSXML2.DOMDocument.3.0");
-			        xmlDoc.async = false;
-			        xmlDoc.loadXML(xmlString);
-			    }else if (document.implementation && document.implementation.createDocument){
-			        var domParser = new DOMParser();
-			        xmlDoc = domParser.parseFromString(xmlString, 'text/xml');
-			    }else{
-			        return null;
-			    }
-			    return xmlDoc;
-			}
-		</script>
-		</c:when>		
-		<c:otherwise>
-			<script type="text/javascript">
-				$(document).ready(function(){
-					var t = new Date().getTime();
-					$.get("${ctx}admin/sys/menu_findMenuByRole.do?t="+t,function(xml){
-						var da = $(xml);
-						var pMenu = da.find("item[url='javascript:void(0);']");
-						var str = "";
-						if((pMenu!=null)&&(pMenu.length!=0)){
-							for(var i=0;i<pMenu.length;i++){
-								var pmenu = $(pMenu[i]);
-								var name = pmenu.attr("text");
-								var url = pmenu.attr("url");
-								str+= "<h3><a href='"+url+"' id='nav_"+(i+1)+"' title="+name+">"+name+"</a></h3>";
-								var sMenu = pmenu.find("item");
-								var length = sMenu.length;
-								if((sMenu!=null)&&(length!=0)){
-								str+= "<ul class='toggle'>";
-									for(var j=0;j<length;j++){
-										var smenu = $(sMenu[j]);
-										var smenuName = smenu.attr("text");
-										var smenuUrl = smenu.attr("url");
-										var id = smenu.attr("id");
-										str+="<li class='icn_"+id+"'><a title="+smenuName+" href='${ctx}"+smenuUrl+"'>"+smenuName+"</a></li>";
-									}
-									str+="</ul>";
-								};
-							};
-						};
-						$("#footer").before(str);
-					});
-				});
-				</script>
-		</c:otherwise>
-	</c:choose>
-    </head>
-    <body>
-    <%
-		if(request.getParameter("menuId")!=null){
-			WebApplicationContext app = ContextLoader.getCurrentWebApplicationContext();
-			MenuServiceImpl menuService = (MenuServiceImpl)app.getBean("menuService");
-			Menu menu = menuService.loadMenuById(Long.parseLong(request.getParameter("menuId")));
-			session.setAttribute("menu", menu);
-		}
-	%>
-<section id="secondary_bar">
-		<div class="user">
-			<p><sec:authentication property="principal.realName"/>(<sec:authentication property="principal.username"/>)</p>
-			<!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
-		</div>
-		<div class="breadcrumbs_container">
-			<article class="breadcrumbs">
-			<a href="${ctx }admin">首页</a> 
-			<c:if test="${!empty param.menuName}">
-				<div class="breadcrumb_divider"></div>
-				<c:choose>
-					<c:when test="${empty param.menuSubName }">
-						<a class="current">${param.menuName }</a>
-					</c:when>
-					<c:otherwise>
-						<a href="${ctx }${menu.url}">${param.menuName }</a>
-						<div class="breadcrumb_divider"></div>
-						<a class="current">${param.menuSubName }</a>
-					</c:otherwise>
-				</c:choose>
-			</c:if>
-			</article>
-		</div>
-	</section><!-- end of secondary bar -->
-	<aside id="sidebar" class="column" style="height: 100%;">
-		<footer id="footer">
-			<hr />
-			<%
-				Calendar now = Calendar.getInstance(TimeZone.getDefault(),Locale.getDefault());
-			%>
-			<p><strong>Copyright &copy; <%=now.get(Calendar.YEAR) %> linian365boy@foxmail.com</strong></p>
-		</footer>
-	</aside><!-- end of sidebar -->
-	
-	<script type="text/javascript">
-  	if(typeof(str)!='undefined'){
-  		$("#footer").before(str);
-  	}
-  </script>
-	</body>
-	</html>
+   <div class="leftpanel">
+    <div class="logopanel">
+        <h1><span>[</span> bracket <span>]</span></h1>
+    </div><!-- logopanel -->
+    <div class="leftpanelinner">    
+        <!-- This is only visible to small devices -->
+        <div class="visible-xs hidden-sm hidden-md hidden-lg">   
+            <div class="media userlogged">
+                <img alt="" src="/resources/images/photos/loggeduser.png" class="media-object">
+                <div class="media-body">
+                    <h4>John Doe</h4>
+                    <span>"Life is so..."</span>
+                </div>
+            </div>
+          
+            <h5 class="sidebartitle actitle">Account</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+              <li><a href="profile.html"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+              <li><a href="#"><i class="fa fa-cog"></i> <span>Account Settings</span></a></li>
+              <li><a href="#"><i class="fa fa-question-circle"></i> <span>Help</span></a></li>
+              <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+            </ul>
+        </div>
+      
+      <h5 class="sidebartitle">Navigation</h5>
+      <ul class="nav nav-pills nav-stacked nav-bracket">
+        <li class="active"><a href="index.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
+        <li><a href="email.html"><i class="fa fa-envelope-o"></i> <span>菜品管理</span></a></li>
+        <li class="nav-parent"><a href="#"><i class="fa fa-edit"></i> <span>系统管理</span></a>
+          <ul class="children">
+            <li><a href="general-forms.html"><i class="fa fa-caret-right"></i>商家管理</a></li>
+            <li><a href="form-layouts.html"><i class="fa fa-caret-right"></i>会员管理</a></li>
+            <li><a href="form-validation.html"><i class="fa fa-caret-right"></i>角色管理</a></li>
+            <li><a href="form-wizards.html"><i class="fa fa-caret-right"></i>权限管理</a></li>
+            <li><a href="wysiwyg.html"><i class="fa fa-caret-right"></i>日志查看</a></li>
+          </ul>
+        </li>
+        <li class="nav-parent"><a href="#"><i class="fa fa-suitcase"></i> <span>报表统计</span></a>
+          <ul class="children">
+            <li><a href="buttons.html"><i class="fa fa-caret-right"></i>订单统计</a></li>
+            <li><a href="icons.html"><i class="fa fa-caret-right"></i>菜品统计</a></li>
+            <li><a href="typography.html"><i class="fa fa-caret-right"></i>访问统计</a></li>
+            <li><a href="alerts.html"><i class="fa fa-caret-right"></i>消息统计</a></li>
+            <li><a href="tabs-accordions.html"><i class="fa fa-caret-right"></i> Tabs &amp; Accordions</a></li>
+            <li><a href="sliders.html"><i class="fa fa-caret-right"></i> Sliders</a></li>
+            <li><a href="graphs.html"><i class="fa fa-caret-right"></i> Graphs &amp; Charts</a></li>
+            <li><a href="widgets.html"><i class="fa fa-caret-right"></i> Panels &amp; Widgets</a></li>
+            <li><a href="extras.html"><i class="fa fa-caret-right"></i> Extras</a></li>
+          </ul>
+        </li>
+        <li><a href="tables.html"><i class="fa fa-th-list"></i> <span>反馈管理</span></a></li>
+        <li><a href="maps.html"><i class="fa fa-map-marker"></i> <span>消息管理</span></a></li>
+        <li class="nav-parent"><a href="#"><i class="fa fa-file-text"></i> <span>Pages</span></a>
+          <ul class="children">
+            <li><a href="calendar.html"><i class="fa fa-caret-right"></i> Calendar</a></li>
+            <li><a href="media-manager.html"><i class="fa fa-caret-right"></i> Media Manager</a></li>
+            <li><a href="timeline.html"><i class="fa fa-caret-right"></i> Timeline</a></li>
+            <li><a href="blog-list.html"><i class="fa fa-caret-right"></i> Blog List</a></li>
+            <li><a href="blog-single.html"><i class="fa fa-caret-right"></i> Blog Single</a></li>
+            <li><a href="people-directory.html"><i class="fa fa-caret-right"></i> People Directory</a></li>
+            <li><a href="profile.html"><i class="fa fa-caret-right"></i> Profile</a></li>
+            <li><a href="invoice.html"><i class="fa fa-caret-right"></i> Invoice</a></li>
+            <li><a href="search-results.html"><i class="fa fa-caret-right"></i> Search Results</a></li>
+            <li><a href="blank.html"><i class="fa fa-caret-right"></i> Blank Page</a></li>
+            <li><a href="notfound.html"><i class="fa fa-caret-right"></i> 404 Page</a></li>
+            <li><a href="locked.html"><i class="fa fa-caret-right"></i> Locked Screen</a></li>
+            <li><a href="signin.html"><i class="fa fa-caret-right"></i> Sign In</a></li>
+            <li><a href="signup.html"><i class="fa fa-caret-right"></i> Sign Up</a></li>
+          </ul>
+        </li>
+        <li><a href="layouts.html"><i class="fa fa-laptop"></i> <span>Skins &amp; Layouts</span></a></li>
+      </ul>
+      
+      <div class="infosummary">
+        <h5 class="sidebartitle">Information Summary</h5>    
+        <ul>
+            <li>
+                <div class="datainfo">
+                    <span class="text-muted">Daily Traffic</span>
+                    <h4>630, 201</h4>
+                </div>
+                <div id="sidebar-chart" class="chart"></div>   
+            </li>
+            <li>
+                <div class="datainfo">
+                    <span class="text-muted">Average Users</span>
+                    <h4>1, 332, 801</h4>
+                </div>
+                <div id="sidebar-chart2" class="chart"></div>   
+            </li>
+            <li>
+                <div class="datainfo">
+                    <span class="text-muted">Disk Usage</span>
+                    <h4>82.2%</h4>
+                </div>
+                <div id="sidebar-chart3" class="chart"></div>   
+            </li>
+            <li>
+                <div class="datainfo">
+                    <span class="text-muted">CPU Usage</span>
+                    <h4>140.05 - 32</h4>
+                </div>
+                <div id="sidebar-chart4" class="chart"></div>   
+            </li>
+            <li>
+                <div class="datainfo">
+                    <span class="text-muted">Memory Usage</span>
+                    <h4>32.2%</h4>
+                </div>
+                <div id="sidebar-chart5" class="chart"></div>   
+            </li>
+        </ul>
+      </div><!-- infosummary -->
+      
+    </div><!-- leftpanelinner -->
+  </div><!-- leftpanel -->

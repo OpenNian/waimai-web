@@ -1,10 +1,9 @@
 package com.waimai.model.business;  
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.Date;
 
 import com.waimai.model.IdEntity;
-import com.waimai.model.dish.Dish;
 
 /**
  * ClassName: Business
@@ -40,13 +39,13 @@ public class Business extends IdEntity implements Serializable{
 	 */
 	private String telephone;
 	/**
-	 * 商家所有菜品
-	 */
-	private Set<Dish> dishes;
-	/**
 	 * 商家描述介绍等
 	 */
 	private String busdetail;
+	/**
+	 * 商家创建时间
+	 */
+	private Date createTime;
 	
 	
 	public String getBusdetail() {
@@ -85,10 +84,10 @@ public class Business extends IdEntity implements Serializable{
 	public void setBussinesNo(String bussinesNo) {
 		this.bussinesNo = bussinesNo;
 	}
-	public Set<Dish> getDishes() {
-		return dishes;
+	public Date getCreateTime() {
+		return createTime;
 	}
-	public void setDishes(Set<Dish> dishes) {
-		this.dishes = dishes;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 }

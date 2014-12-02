@@ -3,13 +3,14 @@ package com.waimai.model.order;
 import java.io.Serializable;
 import java.util.Date;
 
-public class OrderItem implements Serializable{
+import com.waimai.model.IdEntity;
+
+public class OrderItem extends IdEntity implements Serializable{
 	/** 
 	 * serialVersionUID:序列化
 	 * @since JDK 1.6 
 	 */ 
 	private static final long serialVersionUID = -3715889807000320027L;
-	private int id;
 	/**
 	 * 购买数量
 	 */
@@ -26,14 +27,11 @@ public class OrderItem implements Serializable{
 	 * 订单号
 	 */
 	private String orderNo;
-	
+	/**
+	 * 创建时间
+	 */
 	private Date createTime;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 	public int getSize() {
 		return size;
 	}

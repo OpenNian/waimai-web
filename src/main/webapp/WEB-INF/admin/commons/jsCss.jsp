@@ -1,8 +1,16 @@
-<link rel="stylesheet" href="${ctx }resources/css/layout.css" type="text/css" />
-<!--[if lt IE 9]>
-<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-<script src="${ctx }resources/js/jquery-1.5.2.min.js" type="text/javascript"></script>
-<script src="${ctx }resources/js/hideshow.js" type="text/javascript"></script>
-<script src="${ctx }resources/js/jquery.tablesorter.min.js" type="text/javascript"></script>
+<script src="/resources/js/jquery-1.10.2.min.js"></script>
+<script src="/resources/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/modernizr.min.js"></script>
+<script src="/resources/js/jquery.sparkline.min.js"></script>
+<script src="/resources/js/toggles.min.js"></script>
+<script src="/resources/js/retina.min.js"></script>
+<script src="/resources/js/jquery.cookies.js"></script>
+<script src="/resources/js/flot/flot.min.js"></script>
+<script src="/resources/js/flot/flot.resize.min.js"></script>
+<script src="/resources/js/morris.min.js"></script>
+<script src="/resources/js/raphael-2.1.0.min.js"></script>
+<script src="/resources/js/jquery.datatables.min.js"></script>
+<script src="/resources/js/chosen.jquery.min.js"></script>
+<script src="/resources/js/custom.js"></script>
+<script src="/resources/js/dashboard.js"></script>
