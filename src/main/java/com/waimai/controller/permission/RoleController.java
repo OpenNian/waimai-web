@@ -21,6 +21,7 @@ import com.waimai.model.permission.Menu;
 import com.waimai.model.permission.Resource;
 import com.waimai.model.permission.Role;
 import com.waimai.model.permission.User;
+import com.waimai.service.permission.RoleService;
 import com.waimai.service.permission.impl.LogUtil;
 import com.waimai.service.permission.impl.MenuServiceImpl;
 import com.waimai.service.permission.impl.ResourceServiceImpl;
@@ -31,11 +32,11 @@ import com.waimai.util.PageRainier;
 import com.waimai.util.UUIDGenerator;
 
 @Controller
-@RequestMapping("/admin/sys/role")
+@RequestMapping("/background/sys")
 @Scope("prototype")
 public class RoleController {
 	@Autowired
-	private RoleServiceImpl roleService;
+	private RoleService roleService;
 	private PageRainier<Role> roles;
 	private Integer pageSize = 10;
 	@Autowired
@@ -49,29 +50,28 @@ public class RoleController {
 	 * @return
 	 * @Author: 李年
 	 */
-	@RequestMapping(value="/getRolesByAjax",method=RequestMethod.GET)
+	@RequestMapping(value="/role/getRolesByAjax",method=RequestMethod.GET)
 	@ResponseBody
 	public List<Object[]> getRolesByAjax(){
 		List<Object[]> rolesByAjax = roleService.findAllByAjax();
 		return rolesByAjax;
 	}
 	
-	@RequestMapping({"/roles/{pageNo}"})
-	public String list(@PathVariable Integer pageNo,Model model,HttpServletRequest request){
-		if(pageNo==null){
-			pageNo = 1;
-		}
-		roles = roleService.findAll(pageNo, pageSize, true);
+	@RequestMapping("/role/{pageNo}")
+	public String list(@PathVariable Integer pageNo,String keyword,
+			Model model,HttpServletRequest request){
+		System.out.println(pageNo+"="+"=====");
+		roles = roleService.findAll(keyword,pageNo, pageSize);
 		model.addAttribute("page",roles);//map
 		return "admin/sys/role/list";
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.GET)
+	@RequestMapping("/role/add")
 	public String add(Model model) {
 		return "admin/sys/role/add";
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
+	@RequestMapping(value="/role/add",method=RequestMethod.POST)
 	public String add(Role role, HttpServletRequest request) {
 		try {
 			String marking = UUIDGenerator.getUUID().toUpperCase();
@@ -87,7 +87,7 @@ public class RoleController {
 		return InternalResourceViewResolver.REDIRECT_URL_PREFIX+"/admin/sys/role/roles/1";
 	}
 	
-	@RequestMapping(value="/{roleName}/update",method=RequestMethod.GET)
+	@RequestMapping(value="/role/{roleName}/update",method=RequestMethod.GET)
 	public String update(@PathVariable String roleName,Model model) {
 		if (roleName != null) {
 			model.addAttribute("model",roleService.loadRoleByName(roleName));
@@ -95,7 +95,7 @@ public class RoleController {
 		return "admin/sys/role/update";
 	}
 	
-	@RequestMapping(value="/{roleName}/update",method=RequestMethod.POST)
+	@RequestMapping(value="/role/{roleName}/update",method=RequestMethod.POST)
 	public String update(@PathVariable String roleName,Role role) {
 		if(roleName!=null){
 			Role temp = roleService.loadRoleByName(role.getName());
@@ -108,7 +108,7 @@ public class RoleController {
 		return "redirect:/admin/sys/role/roles/1";
 	}
 	
-	@RequestMapping(value="/{roleName}/del",method=RequestMethod.GET)
+	@RequestMapping(value="/role/{roleName}/del",method=RequestMethod.GET)
 	public String del(@PathVariable String roleName){
 		if(roleName!=null){
 			Role role = roleService.loadRoleByName(roleName);
@@ -122,12 +122,12 @@ public class RoleController {
 		return "redirect:/admin/admin/sys/role/roles/1";
 	}
 	
-	@RequestMapping(value="/qxfp",method=RequestMethod.GET)
+	@RequestMapping(value="/role/qxfp",method=RequestMethod.GET)
 	public String qxfp(){
 		return "admin/sys/role/qxfp";
 	}
 	
-	@RequestMapping(value="/{roleName}/distribute",method=RequestMethod.POST)
+	@RequestMapping(value="/role/{roleName}/distribute",method=RequestMethod.POST)
 	public String distribute(@PathVariable String roleName,HttpServletRequest request,HttpSession session){
 		try {
 			if(roleName!=null){
@@ -181,11 +181,11 @@ public class RoleController {
 		return "redirect:/admin/sys/role/roles/1";
 	}
 
-	public RoleServiceImpl getRoleService() {
+	public RoleService getRoleService() {
 		return roleService;
 	}
 
-	public void setRoleService(RoleServiceImpl roleService) {
+	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
 

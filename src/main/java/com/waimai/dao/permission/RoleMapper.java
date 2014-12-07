@@ -3,6 +3,8 @@ package com.waimai.dao.permission;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.waimai.model.permission.Role;
 import com.waimai.model.permission.User;
 
@@ -73,4 +75,17 @@ public interface RoleMapper {
 		public void delete(Role role);
 		
 		public void deleteById(Serializable roleName);
+		
+		/**
+		 * findAll 查询所有角色
+		 * @param keyword 关键字，这里仅使用角色名 
+		 * @param pageNo
+		 * @param pageSize
+		 * @return 
+		 *List<Role>
+		 * @exception 
+		 * @since  1.0.0
+		 */
+		public List<Role> findAll(@Param("keyword")String keyword, Integer pageNo, Integer pageSize);
+		public long countAll(@Param("keyword")String keyword);
 }

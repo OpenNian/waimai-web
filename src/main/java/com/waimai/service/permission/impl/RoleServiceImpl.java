@@ -2,10 +2,8 @@ package com.waimai.service.permission.impl;
 
 import java.io.Serializable;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.waimai.dao.permission.RoleMapper;
 import com.waimai.model.permission.Role;
 import com.waimai.model.permission.User;
@@ -26,9 +24,12 @@ public class RoleServiceImpl implements RoleService{
 	public List<Object[]> findAllByAjax() {
 		return roleDao.finAllByAjax();
 	}
-
-	public PageRainier<Role> findAll(Integer pageNo, Integer pageSize, boolean b) {
-		return null;
+	
+	public PageRainier<Role> findAll(String keyword,Integer pageNo, Integer pageSize) {
+		long count = roleDao.countAll(keyword);
+		PageRainier<Role> page = new PageRainier<Role>(count,pageNo,pageSize);
+		page.setResult(roleDao.findAll(keyword,(pageNo-1)*pageSize,pageSize));
+		return page;
 	}
 	/**
 	 * @FunName: loadRoleByName

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.waimai.model.permission.Role;
 import com.waimai.model.permission.User;
+import com.waimai.util.PageRainier;
 
 
 public interface RoleService {
@@ -61,5 +62,6 @@ public interface RoleService {
 	 * @CreateDate: 2013-5-24
 	 */
 	public List<User> findUserByRole(Serializable roleId);
-	public Object findAllByAjax();
+	public List<Object[]> findAllByAjax();
+	public PageRainier<Role> findAll(String keyword, Integer pageNo, Integer pageSize);
 }

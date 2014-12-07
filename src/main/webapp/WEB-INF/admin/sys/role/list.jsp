@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@include file="/WEB-INF/commons/include.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <%@include file="/WEB-INF/admin/commons/listJsCss.jsp" %>
- <%@include file="/WEB-INF/admin/commons/jsCss.jsp" %>
-<title>角色管理|GELAIMEI Furniture后台管理系统</title>
-
+<title>角色管理|后台管理系统</title>
+<link href="/resources/css/style.default.css" rel="stylesheet">
+<link href="/resources/css/jquery.datatables.css" rel="stylesheet">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
 <script type="text/javascript">
-
 	var update = function(obj){
 		var roleName = $(obj).attr("name");
 		var url = '${ctx}admin/sys/role_updatePre.do?pageNo=${pageNo}&name='+roleName;
@@ -47,69 +50,77 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/admin/commons/header.jsp"/>
-	<jsp:include page="/WEB-INF/admin/commons/left.jsp">
-		<jsp:param value="3" name="menuId"/>
-		<jsp:param value="角色管理" name="menuName"/>
-	</jsp:include>
-	<section id="main" class="column">
-	<jsp:include page="/WEB-INF/admin/commons/message.jsp"/>
-		<article class="module width_full">
-		<header>
-		<h3 class="tabs_involved">角色列表</h3>
-		<ul class="tabs">
-			<c:url value="${ctx }admin/sys/role_export.do" var="exportUrl" scope="page"/>
-   			<li><a href="javascript:void(0);" onclick="tianjia();">新增角色</a></li>
-   			<li><a href="javascript:void(0);" onclick="qxfp();">权限分配</a></li>
-		</ul>
-		</header>
-
-		<div class="tab_container">
-			<div id="tab1" class="tab_content">
-			<table class="tablesorter" cellspacing="0"> 
-			<thead> 
-				<tr> 
-    				<th >序号</th>
-					<th >角色</th>
-					<th width="600px">权限</th>
-					<th >操作</th>
-				</tr> 
-			</thead> 
-			<tbody id="dataContent"> 
-				<c:forEach items="${page.result }" var="role" varStatus="status">
-				<tr>
-					<td>${(page.currentPageIndex-1)*page.pageSize+status.index+1 }</td>
-					<td>${role.desc }</td>
-					<td>
-						<c:forEach items="${role.resources }" var="resource" varStatus="rowm">
-							<span class="label label-primary" title="${resource.descn }">${resource.descn }
-							</span>&nbsp;
-              			</c:forEach>
-					</td>
-					<td>
-						<input type="image" name="${role.name }" onclick="update(this);"
-						src="${ctx }resources/images/icn_edit.png" title="修改"/>
-						<input type="image" name="${role.name }" onclick="del(this);" 
-						src="${ctx }resources/images/icn_trash.png" title="删除"/>&nbsp;&nbsp;
-					</td>
-				</tr>
-			</c:forEach>
-			</tbody> 
-			<tfoot>
-				<tr>
-                <td colspan="12">
-                	<div class="paginationD">
-                		<c:import url="/admin/commons/page.jsp">
-                			<c:param name="url" value="admin/sys/role_list.do"/>
-                		</c:import>
-                	</div>
-                  <!-- <div class="clear"></div></td> -->
-              </tr>
-			</tfoot>
-			</table>
-			</div><!-- end of #tab1 -->
-		</div><!-- end of .tab_container -->
-		</article><!-- end of content manager article -->
+	<!-- Preloader -->
+	<div id="preloader">
+	    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+	</div>
+	<section>
+	<jsp:include page="/WEB-INF/admin/commons/left.jsp"/>
+	<div class="mainpanel">
+	<jsp:include page="/WEB-INF/admin/commons/headerbar.jsp"/>    
+	<jsp:include page="/WEB-INF/admin/commons/pageheader.jsp"/>
+	<div class="contentpanel">
+    	<div class="row">
+    	<div class="panel panel-default">
+    		<div class="panel-body">
+    			<div class="table-responsive">
+    				<div role="grid" class="dataTables_wrapper" id="table2_wrapper"><div id="table2_length" class="dataTables_length"><label>Show <select name="table2_length" size="1" aria-controls="table2" style="display: none;"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select><div class="chosen-container chosen-container-single chosen-container-single-nosearch" style="width: 55px;" title=""><a tabindex="-1" class="chosen-single"><span>10</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" readonly=""></div><ul class="chosen-results"></ul></div></div> entries</label></div><div class="dataTables_filter" id="table2_filter"><label>Search: <input type="text" aria-controls="table2"></label></div><table id="table2" class="table dataTable" aria-describedby="table2_info">
+              <thead>
+                 <tr role="row">
+                 <th role="columnheader" tabindex="0" aria-controls="table2" 
+                 rowspan="1" colspan="1" style="width: 164px;" aria-sort="ascending" 
+                 aria-label="Rendering engine: activate to sort column descending">序号</th>
+                 <th role="columnheader" tabindex="0" aria-controls="table2" 
+                 rowspan="1" colspan="1" style="width: 164px;" aria-sort="ascending" 
+                 aria-label="Rendering engine: activate to sort column descending">角色名</th>
+                 <th role="columnheader" tabindex="0" aria-controls="table2" 
+                 rowspan="1" colspan="1" style="width: 164px;" aria-sort="ascending" 
+                 aria-label="Rendering engine: activate to sort column descending">创建日期</th>
+                 <th class="table-action" role="columnheader" tabindex="0" aria-controls="table2" rowspan="1" 
+                 colspan="1" style="width: 99px;" 
+                 aria-label="CSS grade: activate to sort column ascending">操作</th></tr>
+              </thead>
+           <tbody role="alert" aria-live="polite" aria-relevant="all">
+           		<c:forEach items="${page.result }" var="item" varStatus="status">
+           			<tr class="gradeA odd">
+	           			<td class="  sorting_1">${(page.currentPageIndex-1)*(page.pageSize)+status.index+1 }</td>
+	                    <td class="  sorting_1">${item.desc }</td>
+	                    <td class="  sorting_1">
+	                    <fmt:formatDate value="${item.createDate }" pattern="yyyy-MM-dd HH:mm:ss"/>
+	                    </td>
+	                    <td class="table-action">
+	                    	<a href="#">
+	                    		<i class="fa fa-pencil"></i>
+	                    	</a>
+	                    	<a class="delete-row" href="#"><i class="fa fa-trash-o"></i></a>
+	                    </td>
+                 	</tr>
+           		</c:forEach>
+                 </tbody>
+                 </table>
+                 <c:import url="/WEB-INF/admin/commons/page.jsp">
+             			<c:param name="url" value="background/sys/role/"/>
+             		</c:import>
+                 </div>
+    			</div>
+    		</div>
+    	</div>
+    	</div>
+    </div>
+    </div>
 	</section>
+	<script src="/resources/js/jquery-1.10.2.min.js"></script>
+	<script src="/resources/js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"></script>
+	<script src="/resources/js/modernizr.min.js"></script>
+	<script src="/resources/js/jquery.sparkline.min.js"></script>
+	<script src="/resources/js/toggles.min.js"></script>
+	<script src="/resources/js/retina.min.js"></script>
+	<script src="/resources/js/jquery.cookies.js"></script>
+	
+	<script src="/resources/js/jquery.datatables.min.js"></script>
+	<script src="/resources/js/chosen.jquery.min.js"></script>
+	
+	<script src="/resources/js/custom.js"></script>
 </body>
 </html>

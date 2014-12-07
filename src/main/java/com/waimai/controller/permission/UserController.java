@@ -29,7 +29,7 @@ import com.waimai.util.PageRainier;
 
 
 @Controller
-@RequestMapping("/admin/sys/user")
+@RequestMapping("/background/sys")
 @Scope("prototype")
 /**
  * UserController:管理员的类
@@ -45,23 +45,20 @@ public class UserController {
 	private PageRainier<User> users;
 	private Integer pageSize = 10;
 	
-	@RequestMapping({"/users/{pageNo}"})
+	@RequestMapping("/user/{pageNo}")
 	public String list(@PathVariable Integer pageNo,Model model,HttpServletRequest request){
-		if(pageNo==null){
-			pageNo = 1;
-		}
 		System.out.println(1244443);
 		users = userService.findAllUser(pageNo, pageSize, true);
 		model.addAttribute("page",users);//map
 		return "admin/sys/user/list";
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.GET)
+	@RequestMapping(value="/user/add",method=RequestMethod.GET)
 	public String add(Model model) {
 		return "admin/sys/user/add";
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
+	@RequestMapping(value="/user/add",method=RequestMethod.POST)
 	public String add(User user, HttpServletRequest request) {
 		try {
 			user.setAccountNonLocked(true);
@@ -81,15 +78,13 @@ public class UserController {
 		return InternalResourceViewResolver.REDIRECT_URL_PREFIX+"/admin/sys/user/users/1";
 	}
 	
-	@RequestMapping(value="/{username}",method=RequestMethod.GET)
+	@RequestMapping(value="/user/{username}/detail",method=RequestMethod.GET)
 	public String detail(@PathVariable String username,Model model){
-		if(username!=null&&username!=""){
-			model.addAttribute("model",userService.loadUserByName(username));
-		}
+		model.addAttribute("model",userService.loadUserByName(username));
 		return "admin/sys/user/detail";
 	}
 	
-	@RequestMapping(value="/{username}/update",method=RequestMethod.GET)
+	@RequestMapping(value="/user/{username}/update",method=RequestMethod.GET)
 	public String update(@PathVariable String username,Model model) {
 		if (username != null) {
 			model.addAttribute("model",userService.loadUserByName(username));
@@ -98,7 +93,7 @@ public class UserController {
 		return "admin/sys/user/update";
 	}
 	
-	@RequestMapping(value="/{username}/update",method=RequestMethod.POST)
+	@RequestMapping(value="/user/{username}/update",method=RequestMethod.POST)
 	public String update(HttpServletRequest request,@PathVariable String username,User user) {
 		Set<Role> roles = null;
 		StringBuilder content = new StringBuilder();
@@ -137,7 +132,7 @@ public class UserController {
 		return "redirect:/admin/sys/user/users/1";
 	}
 	
-	@RequestMapping(value="/existUser",method=RequestMethod.POST)
+	@RequestMapping(value="/user/existUser",method=RequestMethod.POST)
 	public String existUser(HttpServletRequest request,HttpServletResponse response){
 		PrintWriter out = null;
 		try {
@@ -169,7 +164,7 @@ public class UserController {
 		return null;
 	}
 	
-	@RequestMapping(value="/{username}/reset",method=RequestMethod.GET)
+	@RequestMapping(value="/user/{username}/reset",method=RequestMethod.GET)
 	public String reset(@PathVariable String username,User user,HttpServletResponse response){
 		PrintWriter out = null;
 		String actionMsg = "";
@@ -197,7 +192,7 @@ public class UserController {
 		return null;
 	}
 	
-	@RequestMapping(value="/{username}/unsubscribe",method=RequestMethod.GET)
+	@RequestMapping(value="/user/{username}/unsubscribe",method=RequestMethod.GET)
 	public String unsubscribe(@PathVariable String username,User user){
 		if (user.getUsername() != null) {
 			user = userService.loadUserByName(user.getUsername());

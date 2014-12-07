@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@include file="/WEB-INF/commons/include.jsp" %>
    <div class="leftpanel">
     <div class="logopanel">
         <h1><span>[</span> bracket <span>]</span></h1>
@@ -32,7 +33,7 @@
           <ul class="children">
             <li><a href="general-forms.html"><i class="fa fa-caret-right"></i>商家管理</a></li>
             <li><a href="form-layouts.html"><i class="fa fa-caret-right"></i>会员管理</a></li>
-            <li><a href="form-validation.html"><i class="fa fa-caret-right"></i>角色管理</a></li>
+            <li><a href="${ctx }background/sys/role/1.htm"><i class="fa fa-caret-right"></i>角色管理</a></li>
             <li><a href="form-wizards.html"><i class="fa fa-caret-right"></i>权限管理</a></li>
             <li><a href="wysiwyg.html"><i class="fa fa-caret-right"></i>日志查看</a></li>
           </ul>

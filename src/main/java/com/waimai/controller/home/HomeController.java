@@ -43,6 +43,7 @@ public class HomeController {
 	
 	@RequestMapping(value={"/index","/",""}, method = RequestMethod.GET)
 	public String home(Model model) {
+		System.out.println("enter===================index page===========");
 		return "admin/index";
 	}
 	

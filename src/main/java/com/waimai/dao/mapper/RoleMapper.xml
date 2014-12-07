@@ -2,5 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.waimai.dao.permission.RoleMapper">
-	
+	<resultMap type="Role" id="roleMap">
+		<id property="name" column="name"/>
+		<result column="describes" property="desc"/>
+		<result column="createDate" property="createDate"/>
+	</resultMap>
+	<select id="findAll" resultMap="roleMap">
+		select name,createDate,describes from role 
+		<where>
+			defaultOrNo =0 
+			<if test="keyword!=null and keyword!=''">
+				and describes like concat('%',#{0},'%') 
+			</if>
+		</where>
+	    order by createDate desc limit #{1},#{2}
+	</select>
+	<select id="countAll" resultType="java.lang.Long" parameterType="java.lang.String">
+		select count(1) from role 
+		<where>
+			defaultOrNo =0 
+			<if test="keyword!=null and keyword!=''">
+				and describes like concat('%',#{0},'%') 
+			</if>
+		</where>
+	</select>
 </mapper>
